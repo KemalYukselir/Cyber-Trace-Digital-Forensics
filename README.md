@@ -10,7 +10,10 @@ A final year group project for COMP6000 at University of Kent.
 //TODO
 
 ## Usage
-//TODO
+The project is setup with a framework, **Spring Boot**, and a package manager, **Gradle**.
+**Spring Boot** allows for the MVC setup, with HTML views being served by Java backend.
+**Gradle** compiles the project and handles our dependencies.
+Application needs to be compiled by running `/gradle bootRun`, and then can be visited on `http://localhost:8080/`.
 
 ## Authors and acknowledgment
 #### Group Members
