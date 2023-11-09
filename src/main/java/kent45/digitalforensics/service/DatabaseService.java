@@ -12,7 +12,7 @@ public class DatabaseService {
     // When constructed creates the connection
     public DatabaseService(){
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://dragon.kent.ac.uk:3306/comp6000_46?", "comp6000_46", "lasell6");
+            connection = DriverManager.getConnection("jdbc:mysql://dragon.kent.ac.uk:3306/comp6000_46", "comp6000_46", "lasell6");
         }
         catch(Exception e){
             e.printStackTrace();
@@ -97,7 +97,6 @@ public class DatabaseService {
 
             // Use the execute update method which returns the number of rows affected
             return preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             return 0; // If the connection or query fails return 0
         }
