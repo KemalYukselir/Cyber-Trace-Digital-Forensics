@@ -32,4 +32,15 @@ public class TestPageController {
                 .addObject("name", name)
                 .addObject("data", testData);
     }
+
+    @GetMapping("/login")
+    public ModelAndView test() {
+
+        var userName = testService.getTestData();
+        var passWord = testService.getTestData();
+
+        return new ModelAndView("login")
+                .addObject("userName", userName)
+                .addObject("passWord", passWord);
+    }
 }

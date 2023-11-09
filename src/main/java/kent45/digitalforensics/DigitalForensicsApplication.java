@@ -9,6 +9,7 @@ public class DigitalForensicsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DigitalForensicsApplication.class, args);
+
 	}
 
 }
