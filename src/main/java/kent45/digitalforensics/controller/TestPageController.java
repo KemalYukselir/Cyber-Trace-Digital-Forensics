@@ -43,18 +43,23 @@ public class TestPageController {
 
     @GetMapping("/register")
     public String register(Model model) {
+        // Adds the object for the userInfo to be stored in
         model.addAttribute("userInfo", new UserInfo());
         model.addAttribute("failedLoggedIn", false);
 
+        // Returns the name of the html file
         return "register";
     }
 
     @PostMapping("/registerSuccess")
     public String registerSuccess(Model model, @ModelAttribute UserInfo userInfo) {
+        // Attempts to create a user from the form object
         if (databaseService.createUser(userInfo.getUserName(), userInfo.getPassWord())) {
+            // Returns the name of the html file
             return "loginSuccess";
         }
 
+        // If cannot create a new user then username already in use, redirect to register
         model.addAttribute("failedRegister", true);
         return "register";
     }
