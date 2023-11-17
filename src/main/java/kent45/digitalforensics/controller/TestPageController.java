@@ -1,9 +1,14 @@
 package kent45.digitalforensics.controller;
 
+import kent45.digitalforensics.UserInfo;
+import kent45.digitalforensics.service.DatabaseService;
 import kent45.digitalforensics.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,6 +22,9 @@ public class TestPageController {
     // TestPageController(TestService testService) {...
     @Autowired
     private TestService testService;
+
+    @Autowired
+    private DatabaseService databaseService;
 
     // @GetMapping(X) Maps the www.bla.com/X to the method below
     @GetMapping("/test")
@@ -33,15 +41,21 @@ public class TestPageController {
                 .addObject("data", testData);
     }
 
-    @GetMapping("/login")
-    public ModelAndView login() {
+    @GetMapping("/register")
+    public String register(Model model) {
+        model.addAttribute("userInfo", new UserInfo());
+        model.addAttribute("failedLoggedIn", false);
 
-        return new ModelAndView("login");
+        return "register";
     }
 
-    @GetMapping("/loginSuccess")
-    public ModelAndView loginSuccess() {
+    @PostMapping("/registerSuccess")
+    public String registerSuccess(Model model, @ModelAttribute UserInfo userInfo) {
+        if (databaseService.createUser(userInfo.getUserName(), userInfo.getPassWord())) {
+            return "loginSuccess";
+        }
 
-        return new ModelAndView("loginSuccess");
+        model.addAttribute("failedRegister", true);
+        return "register";
     }
 }

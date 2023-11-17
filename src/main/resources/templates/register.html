@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<h2>New User, please create a profile: </h2>
+
+<form method="post" th:action="@{/registerSuccess}" th:object="${userInfo}">
+    <input id="userName" placeholder="Create Username" required type="text" th:field="*{userName}"/>
+    <input id="passWord" placeholder="Create Password" required type="text" th:field="*{passWord}"/>
+    <input type="submit" value="Create User">
+</form>
+
+<p th:if="${failedRegister}"> Username has already been created </p>
+
+</body>
+</html>
