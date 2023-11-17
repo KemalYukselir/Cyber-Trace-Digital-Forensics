@@ -34,13 +34,14 @@ public class TestPageController {
     }
 
     @GetMapping("/login")
-    public ModelAndView test() {
+    public ModelAndView login() {
 
-        var userName = testService.getTestData();
-        var passWord = testService.getTestData();
+        return new ModelAndView("login");
+    }
 
-        return new ModelAndView("login")
-                .addObject("userName", userName)
-                .addObject("passWord", passWord);
+    @GetMapping("/loginSuccess")
+    public ModelAndView loginSuccess() {
+
+        return new ModelAndView("loginSuccess");
     }
 }
