@@ -52,6 +52,8 @@ public class DatabaseService {
      * @return Query Success/failure
      */
     public boolean createUser(String username, String password){
+        System.out.println(username + password);
+
         // SQL query to insert values into the users table
         var query = "INSERT INTO Users (username, password) VALUES(?, ?)";
 
