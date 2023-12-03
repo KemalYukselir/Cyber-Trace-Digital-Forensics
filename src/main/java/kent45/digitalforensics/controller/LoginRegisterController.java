@@ -22,11 +22,10 @@ public class LoginRegisterController {
 
     @PostMapping("/register")
     // @RequestParam("The name of the input in the html file")
-    public ModelAndView register(@RequestParam("username") String username,
-                                 @RequestParam("password") String password) {
+    public ModelAndView register(@RequestParam("username") String username) {
 
         // Attempts to create a user
-        if (databaseService.createUser(username, password)) {
+        if (databaseService.createUser(username)) {
             // Return the loginSuccess modelAndView
             return new ModelAndView("loginSuccess");
         }
@@ -44,11 +43,10 @@ public class LoginRegisterController {
 
     @PostMapping("/login")
     // @RequestParam("The name of the input in the html file")
-    public ModelAndView login(@RequestParam("username") String username, 
-                              @RequestParam("password") String password) {
+    public ModelAndView login(@RequestParam("username") String username) {
 
         // Attempts to create a user
-        if (databaseService.checkLogin(username, password)) {
+        if (databaseService.checkLogin(username)) {
             // Return the loginSuccess modelAndView
             return new ModelAndView("loginSuccess");
         }
@@ -57,7 +55,6 @@ public class LoginRegisterController {
         return new ModelAndView("login")
                 .addObject("failedLogin", true)
                 // Re-add username and password so they persist
-                .addObject("username", username)
-                .addObject("password", password);
+                .addObject("username", username);
     }
 }
