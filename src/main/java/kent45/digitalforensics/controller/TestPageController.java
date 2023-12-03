@@ -1,11 +1,9 @@
 package kent45.digitalforensics.controller;
 
-import kent45.digitalforensics.service.DatabaseService;
 import kent45.digitalforensics.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,9 +18,6 @@ public class TestPageController {
     @Autowired
     private TestService testService;
 
-    @Autowired
-    private DatabaseService databaseService;
-
     // @GetMapping(X) Maps the www.bla.com/X to the method below
     @GetMapping("/test")
     // RequestParam(name="Y") is for optional param like www.bla.com/X?Y=hello
@@ -36,27 +31,5 @@ public class TestPageController {
                 // Data is passed to the template using attributes, with a name and the data.
                 .addObject("name", name)
                 .addObject("data", testData);
-    }
-
-    @GetMapping("/register")
-    public ModelAndView register() {
-        return new ModelAndView("register")
-                .addObject("failedRegister", false);
-    }
-
-    @PostMapping("/register")
-    // @RequestParam("The name of the input in the html file")
-    public ModelAndView register(@RequestParam("userName") String userName,
-                                 @RequestParam("passWord") String passWord) {
-
-        // Attempts to create a user
-        if (databaseService.createUser(userName, passWord)) {
-            // Return the loginSuccess modelAndView
-            return new ModelAndView("loginSuccess");
-        }
-
-        // If cannot create a new user (Username taken) redirect back to register
-        return new ModelAndView("register")
-                .addObject("failedRegister", true);
     }
 }

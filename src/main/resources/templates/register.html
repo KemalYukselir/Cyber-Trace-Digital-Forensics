@@ -1,18 +1,18 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <title>Register</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 
-<h2>New User, please create a profile: </h2>
+<h2>New User, please create a username and password: </h2>
 
 <!-- The url to go to and whether @get or @post mapping-->
 <form action="/register" method="post">
     <!-- The id of the inputs is for the @RequestParam in the controller -->
-    <input id="userName" name="userName" placeholder="Create Username" required type="text"/>
-    <input id="passWord" name="passWord" placeholder="Create Password" required type="text"/>
+    <input id="username" name="username" placeholder="Create Username" required type="text"/>
+    <input id="password" name="password" placeholder="Create Password" required type="text"/>
     <button type="submit">Create User</button>
 </form>
 
