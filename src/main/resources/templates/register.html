@@ -6,18 +6,17 @@
 </head>
 <body>
 
-<h2>New User, please create a username and password: </h2>
+<h2>New User, please create a username: </h2>
 
 <!-- The url to go to and whether @get or @post mapping-->
 <form action="/register" method="post">
     <!-- The id of the inputs is for the @RequestParam in the controller -->
     <input id="username" name="username" placeholder="Create Username" required type="text"/>
-    <input id="password" name="password" placeholder="Create Password" required type="text"/>
     <button type="submit">Create User</button>
 </form>
 
 <!-- This will display the text if registering failed -->
-<p th:if="${failedRegister}"> The username has already been taken </p>
+<p th:if="${failedRegister}"> This username has already been taken </p>
 
 </body>
 </html>

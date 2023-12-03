@@ -22,17 +22,15 @@ public class DatabaseService {
     /**
      * Determines if the provided username and password are found in the database
      * @param username username
-     * @param password password
      * @return Query Success/failure
      */
-    public boolean checkLogin(String username, String password) {
+    public boolean checkLogin(String username) {
         // Set up the query
-        var query = "SELECT * FROM Users WHERE Username = ? AND Password = ?";
+        var query = "SELECT * FROM Users WHERE Username = ?";
 
         // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
         var parameters = new ArrayList<>();
         parameters.add(username);
-        parameters.add(password);
 
         var results = runSelectQuery(query, parameters);
         try {
@@ -48,19 +46,15 @@ public class DatabaseService {
     /**
      * Add a new user to the database
      * @param username username
-     * @param password password
      * @return Query Success/failure
      */
-    public boolean createUser(String username, String password){
-        System.out.println(username + password);
-
+    public boolean createUser(String username){
         // SQL query to insert values into the users table
-        var query = "INSERT INTO Users (username, password) VALUES(?, ?)";
+        var query = "INSERT INTO Users (username) VALUES(?)";
 
         //Sets the parameters in the query to the username, password and doctorID
         var params = new ArrayList<>();
         params.add(username);
-        params.add(password);
 
         // If the query has failed it'll return 0 so return false, otherwise true
         //  The query will usually of failed because there is already a username with that name
