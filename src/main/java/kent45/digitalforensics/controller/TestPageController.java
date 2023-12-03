@@ -1,13 +1,10 @@
 package kent45.digitalforensics.controller;
 
-import kent45.digitalforensics.UserInfo;
 import kent45.digitalforensics.service.DatabaseService;
 import kent45.digitalforensics.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,25 +39,24 @@ public class TestPageController {
     }
 
     @GetMapping("/register")
-    public String register(Model model) {
-        // Adds the object for the userInfo to be stored in
-        model.addAttribute("userInfo", new UserInfo());
-        model.addAttribute("failedLoggedIn", false);
-
-        // Returns the name of the html file
-        return "register";
+    public ModelAndView register() {
+        return new ModelAndView("register")
+                .addObject("failedRegister", false);
     }
 
-    @PostMapping("/registerSuccess")
-    public String registerSuccess(Model model, @ModelAttribute UserInfo userInfo) {
-        // Attempts to create a user from the form object
-        if (databaseService.createUser(userInfo.getUserName(), userInfo.getPassWord())) {
-            // Returns the name of the html file
-            return "loginSuccess";
+    @PostMapping("/register")
+    // @RequestParam("The name of the input in the html file")
+    public ModelAndView register(@RequestParam("userName") String userName,
+                                 @RequestParam("passWord") String passWord) {
+
+        // Attempts to create a user
+        if (databaseService.createUser(userName, passWord)) {
+            // Return the loginSuccess modelAndView
+            return new ModelAndView("loginSuccess");
         }
 
-        // If cannot create a new user then username already in use, redirect to register
-        model.addAttribute("failedRegister", true);
-        return "register";
+        // If cannot create a new user (Username taken) redirect back to register
+        return new ModelAndView("register")
+                .addObject("failedRegister", true);
     }
 }
