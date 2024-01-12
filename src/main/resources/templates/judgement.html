@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-color: #989898;
+        }
+        .parent {
+            display: flex;
+        }
+        .overview {
+            width: 20%;
+            margin: 20px;
+            padding: 10px;
+
+            border-radius: 25px;
+            background: white;
+        }
+        .overview span {
+            display: block;
+        }
+        .buttons {
+            background: #00EFB3;
+            margin: 10px;
+            margin: auto;
+            border-radius: 10px;
+
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <title>Judgement</title>
+    <h1>Make your choice</h1>
+</head>
+<body>
+    <div class="parent">
+        <div class="overview">
+            <span>An innocent person is someone who has not committed a crime or wrongdoing and is free from guilt or blame in a specific or context.</span>
+            <br>
+            <br>
+            <button class="buttons">Innocent</button>
+        </div>
+        <div class="overview">
+            <span>A guilty person is someone who has been proven to have committed a crime or a wrongdoing, and is therefore responsible and accountable for their actions.</span>
+            <br>
+            <button class="buttons">Guilty</button>
+        </div>
+    </div>
+    <form action="/dashboard" method="get">
+        <button type="submit" class="buttons">Go back</button>
+    </form>
+</body>
+</html>

@@ -84,6 +84,8 @@
             <span th:text="${scenario.overview}"/>
         </div>
     </div>
-    <div class="judgement">Make Judgement</div>
+    <form action="/judgement" method="get">
+        <button type="submit" class="judgement">Make Judgement</button>
+    </form>
 </body>
 </html>
