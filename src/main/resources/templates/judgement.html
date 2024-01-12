@@ -41,12 +41,16 @@
             <span>An innocent person is someone who has not committed a crime or wrongdoing and is free from guilt or blame in a specific or context.</span>
             <br>
             <br>
-            <button class="buttons">Innocent</button>
+            <form action="/judgement/innocent" method="post">
+                <button type="submit" class="buttons">Innocent</button>
+            </form>
         </div>
         <div class="overview">
             <span>A guilty person is someone who has been proven to have committed a crime or a wrongdoing, and is therefore responsible and accountable for their actions.</span>
             <br>
-            <button class="buttons">Guilty</button>
+            <form action="/judgement/guilty" method="post">
+                <button type="submit" class="buttons">Guilty</button>
+            </form>
         </div>
     </div>
     <form action="/dashboard" method="get">

@@ -32,4 +32,22 @@ public class DashboardController {
     public ModelAndView getJudgementScreen() {
         return new ModelAndView("judgement");
     }
+
+    @PostMapping("/judgement/guilty")
+    public ModelAndView judgement_guilty() {
+        Scenario scenario = databaseService.getScenario(TEST_SCENARIO);
+
+        return new ModelAndView("judgementScenario")
+                .addObject("judgement", "guilty")
+                .addObject("isGuilty", scenario.isGuilty());
+    }
+
+    @PostMapping("/judgement/innocent")
+    public ModelAndView judgement_innocent() {
+        Scenario scenario = databaseService.getScenario(TEST_SCENARIO);
+
+        return new ModelAndView("judgementScenario")
+                .addObject("judgement", "innocent")
+                .addObject("isGuilty", scenario.isGuilty());
+    }
 }

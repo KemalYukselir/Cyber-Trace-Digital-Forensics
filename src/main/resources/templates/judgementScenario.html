@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body {
+            background-color: #989898;
+        }
+        .parent {
+            display: flex;
+        }
+        .overview {
+            width: 20%;
+            margin: 20px;
+            padding: 10px;
+
+            border-radius: 25px;
+            background: white;
+        }
+        .overview span {
+            display: block;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <title>Judgement</title>
+</head>
+<body>
+    <div class="parent">
+        <div class="overview">
+
+            <p th:if="${judgement} == 'guilty' and ${isGuilty}">You correctly identified the person was guilty</p>
+            <p th:if="${judgement} == 'guilty' and !${isGuilty}">You incorrectly identified the person as guilty, they were innocent</p>
+
+            <p th:if="${judgement} == 'innocent' and !${isGuilty}">You correctly identified the person was innocent</p>
+            <p th:if="${judgement} == 'innocent' and ${isGuilty}">You incorrectly identified the person as innocent, they were guilty</p>
+        </div>
+    </div>
+</body>
+</html>
