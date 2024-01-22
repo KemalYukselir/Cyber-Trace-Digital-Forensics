@@ -1,5 +1,6 @@
 package kent45.digitalforensics.service;
 
+import kent45.digitalforensics.model.Scenario;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -61,6 +62,37 @@ public class DatabaseService {
         return runUpdateQuery(query, params) != 0;
     }
 
+    /**
+     * Get scenario data
+     * @param scenarioId the scenario ID
+     * @return Scenario data
+     */
+    public Scenario getScenario(int scenarioId) {
+        var query = "SELECT * FROM Scenarios WHERE scenarioId = ?";
+
+        // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
+        var parameters = new ArrayList<>();
+        parameters.add(scenarioId);
+
+        try (ResultSet results = runSelectQuery(query, parameters)) {
+            if (results != null) {
+                results.next();
+
+                return new Scenario(
+                        scenarioId,
+                        results.getString(2),
+                        results.getString(3),
+                        results.getInt(4),
+                        results.getBoolean(5)
+                );
+            }
+        } catch (SQLException e) {
+
+        }
+
+        return null;
+    }
+
 
 
     /**
@@ -76,6 +108,7 @@ public class DatabaseService {
 
             return preparedStatement.executeQuery(); // Returns the result of the query
         } catch (SQLException e) {
+            System.err.println(e.getMessage());
             return null; // If the connection or query fails return null
         }
     }

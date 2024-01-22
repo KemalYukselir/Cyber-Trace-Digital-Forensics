@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <style>
+        body {
+          background-color: #989898;
+        }
+        .parent {
+          display: flex;
+        }
+        .overview {
+          width: 30%;
+          margin: 20px;
+          padding: 10px;
+
+          border-radius: 25px;
+          background: white;
+        }
+        .overview span {
+            display: block;
+        }
+        .judgement {
+            background: #00EFB3;
+            width: 20%;
+            margin: 10px;
+            margin: auto;
+            border-radius: 10px;
+
+            text-align: center;
+            font-weight: bold;
+          font-size: 1.5em;
+        }
+        .flex-container {
+          padding: 0;
+          margin: 20px;
+          list-style: none;
+
+          border-radius: 25px;
+          background-color: white;
+
+          -ms-box-orient: horizontal;
+          display: -webkit-box;
+          display: -moz-box;
+          display: -ms-flexbox;
+          display: -moz-flex;
+          display: -webkit-flex;
+          display: flex;
+        }
+        .column {
+          -webkit-flex-direction: column;
+          flex-direction: column;
+          width: 30%;
+          align-items: center;
+        }
+        .column li {
+          background: #989898;
+          padding: 5px;
+          width: 75%;
+          height: 50px;
+          margin: 10px;
+
+          line-height: 50px;
+          color: white;
+          font-weight: bold;
+          font-size: 1.5em;
+          text-align: center;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Scenario Dashboard</title>
+    <h1>Digital Forensics</h1>
+</head>
+<body>
+    <div class="parent">
+        <ul class="flex-container column center">
+            <li>Emails</li>
+            <li>Transaction History</li>
+            <li>Messages Exchanged</li>
+            <li>Records</li>
+        </ul>
+        <div class="overview">
+            <span th:text="${scenario.subject}"/>
+            <span th:text="${scenario.overview}"/>
+        </div>
+    </div>
+    <div class="judgement">Make Judgement</div>
+</body>
+</html>

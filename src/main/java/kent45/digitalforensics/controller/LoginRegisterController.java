@@ -27,7 +27,7 @@ public class LoginRegisterController {
         // Attempts to create a user
         if (databaseService.createUser(username)) {
             // Return the loginSuccess modelAndView
-            return new ModelAndView("loginSuccess");
+            return new ModelAndView("redirect:/dashboard");
         }
 
         // If cannot create a new user (Username taken) redirect back to register
@@ -48,7 +48,7 @@ public class LoginRegisterController {
         // Attempts to create a user
         if (databaseService.checkLogin(username)) {
             // Return the loginSuccess modelAndView
-            return new ModelAndView("loginSuccess");
+            return new ModelAndView("redirect:/dashboard");
         }
 
         // If cannot create a new user (Username taken) redirect back to register
