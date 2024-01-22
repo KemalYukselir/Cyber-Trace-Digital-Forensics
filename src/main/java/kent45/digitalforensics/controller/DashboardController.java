@@ -5,6 +5,7 @@ import kent45.digitalforensics.service.DatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -25,5 +26,28 @@ public class DashboardController {
 
         return new ModelAndView("dashboard")
                 .addObject("scenario", scenario);
+    }
+
+    @GetMapping("/judgement")
+    public ModelAndView getJudgementScreen() {
+        return new ModelAndView("judgement");
+    }
+
+    @PostMapping("/judgement/guilty")
+    public ModelAndView judgement_guilty() {
+        Scenario scenario = databaseService.getScenario(TEST_SCENARIO);
+
+        return new ModelAndView("judgementScenario")
+                .addObject("judgement", "guilty")
+                .addObject("isGuilty", scenario.isGuilty());
+    }
+
+    @PostMapping("/judgement/innocent")
+    public ModelAndView judgement_innocent() {
+        Scenario scenario = databaseService.getScenario(TEST_SCENARIO);
+
+        return new ModelAndView("judgementScenario")
+                .addObject("judgement", "innocent")
+                .addObject("isGuilty", scenario.isGuilty());
     }
 }
