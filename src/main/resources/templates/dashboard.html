@@ -1,77 +1,143 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
+
 <head>
     <style>
         body {
-          background-color: #989898;
+            background-color: #989898;
         }
-        .parent {
-          display: flex;
-        }
-        .overview {
-          width: 30%;
-          margin: 20px;
-          padding: 10px;
 
-          border-radius: 25px;
-          background: white;
+        h1 {
+            font-size: 60px; /* Adjust the font size as needed */
         }
+
+        .parent {
+            display: flex;
+            justify-content: center;
+        }
+
+        .overview {
+            width: 60%;
+            margin: 20px;
+            padding: 10px;
+            border-radius: 25px;
+            background: white;
+        }
+
         .overview span {
             display: block;
         }
+
+        .judgement-form {
+            margin: 10px auto; /* Center the form horizontally */
+            text-align: center; /* Center the button horizontally within the form */
+        }
+
         .judgement {
             background: #00EFB3;
-            width: 20%;
-            margin: 10px;
-            margin: auto;
             border-radius: 10px;
-
             text-align: center;
             font-weight: bold;
-          font-size: 1.5em;
+            font-size: 1.5em;
         }
+
+        .column-header {
+          font-size: 30px;
+          margin-left: 120px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 30px;
+            margin-right: 800px;
+        }
+
         .flex-container {
-          padding: 0;
-          margin: 20px;
-          list-style: none;
-
-          border-radius: 25px;
-          background-color: white;
-
-          -ms-box-orient: horizontal;
-          display: -webkit-box;
-          display: -moz-box;
-          display: -ms-flexbox;
-          display: -moz-flex;
-          display: -webkit-flex;
-          display: flex;
+            padding: 0;
+            margin: 20px;
+            list-style: none;
+            border-radius: 25px;
+            background-color: white;
+            -ms-box-orient: horizontal;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -moz-flex;
+            display: -webkit-flex;
+            display: flex;
+            height: 600px;
         }
+
         .column {
-          -webkit-flex-direction: column;
-          flex-direction: column;
-          width: 30%;
-          align-items: center;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            width: 30%;
+            align-items: center;
         }
-        .column li {
-          background: #989898;
-          padding: 5px;
-          width: 75%;
-          height: 50px;
-          margin: 10px;
 
-          line-height: 50px;
-          color: white;
-          font-weight: bold;
-          font-size: 1.5em;
-          text-align: center;
+        .column li {
+            background: #989898;
+            padding: 5px;
+            width: 75%;
+            height: 50px;
+            margin: 40px;
+            line-height: 50px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5em;
+            text-align: center;
+            cursor: pointer; /* Add this line to make the cursor change on hover */
+            border-radius: 10px;
         }
     </style>
     <meta charset="UTF-8">
     <title>Scenario Dashboard</title>
     <h1>Digital Forensics</h1>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var overviewSpan = document.querySelector('.overview span');
+
+            function updateOverviewText(text) {
+                overviewSpan.textContent = text;
+            }
+
+            function handleButtonClick(buttonText) {
+                switch (buttonText) {
+                    case 'Emails':
+                        updateOverviewText("Emails overview text goes here.");
+                        break;
+                    case 'Transaction History':
+                        updateOverviewText("Transaction History overview text goes here.");
+                        break;
+                    case 'Messages Exchanged':
+                        updateOverviewText("Prosecution includes a chain of incriminating emails found on Lens’ computer which discuss plans and tactics of the attack.\n\nCybersecurity expert explains how email accounts can be compromised and presents evidence showing Lens accounts could’ve been vulnerable.\n\nDefence says incriminating emails were planted by a third party.");
+                        break;
+                    case 'Records':
+                        updateOverviewText("Records overview text goes here.");
+                        break;
+                
+                }
+            }
+
+            var buttons = document.querySelectorAll('.flex-container.column li');
+
+            buttons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    handleButtonClick(button.textContent);
+                });
+            });
+        });
+    </script>
 </head>
+
 <body>
+    <div class="header-container">
+        <div class="column-header">Client Details</div>
+        <div>Overview</div>
+    </div>
     <div class="parent">
         <ul class="flex-container column center">
             <li>Emails</li>
@@ -80,12 +146,14 @@
             <li>Records</li>
         </ul>
         <div class="overview">
-            <span th:text="${scenario.subject}"/>
-            <span th:text="${scenario.overview}"/>
+            <!-- Thymeleaf tags for scenario subject and overview -->
+            <span th:text="${scenario.subject}" />
+            <span th:text="${scenario.overview}" />
         </div>
     </div>
-    <form action="/judgement" method="get">
+    <form class="judgement-form" action="/judgement" method="get">
         <button type="submit" class="judgement">Make Judgement</button>
     </form>
 </body>
+
 </html>
