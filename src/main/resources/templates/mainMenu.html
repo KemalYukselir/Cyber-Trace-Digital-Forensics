@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body {
+            background-image: url('../img/background.jpg');
+            background-size: cover;
+            /* background-position: center;
+            background-repeat: no-repeat; */
+        }
+
         .mainMenuButtons button {
         background-color: "grey"; /* Green background */
         border: 1px solid green; /* Green border */
@@ -33,28 +41,31 @@
             height: 50px; /* Set a height */
         }
 
-        .titleSection #gameTitle {
-            font-size: 80px;
+        .titleSection {
             position: absolute;
             top: 300px;
-            right: 200px;
+            right: 200px;            text-align: center; /* Center align the text within the container */
+            color: white; /* Set text color */
+        }
+
+        #gameTitle {
+            font-size: 80px;
+            color: white;
 
         }
 
-        .titleSection #sloganDesc {
+        #sloganDesc {
             font-size: 25px;
-            position: absolute;
-            top: 400px;
-            right: 280px;
-
+            color: white;
         }
 
         .logoHolder img {
-            width: 500px; 
-            height: 500px;
+            width: 400px; 
+            height: 400px;
             position: absolute;
-            top: 25px;
-            left: 130px;
+            top: 70px;
+            left: 180px;
+            border-radius: 40px;
         }
 
         .audioHolder img {
@@ -68,15 +79,15 @@
 </head>
 <body>
     <div class="logoHolder">
-        <img src="../img/logoPlaceHolder.png">
+        <img src="../img/logoHolder.png">
     </div>
 
     <div class="titleSection">
         <div id="gameTitle">
-            <b>Game Title</b> 
+            <b>CyberTrace</b> 
         </div>
         <div id="sloganDesc">
-            <b>Slogan Description</b> 
+            <b>Investigate. Decide. Catch the criminal</b> 
         </div>
 
     </div>
