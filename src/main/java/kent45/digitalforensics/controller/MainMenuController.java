@@ -12,11 +12,6 @@ public class MainMenuController {
         return new ModelAndView("mainMenu");
     }
 
-    @GetMapping("/startGame")
-    public ModelAndView startGame() {
-        return new ModelAndView("startGame");
-    }
-
     @GetMapping("/leaderboard")
     public ModelAndView leaderboard() {
         return new ModelAndView("leaderboard");
