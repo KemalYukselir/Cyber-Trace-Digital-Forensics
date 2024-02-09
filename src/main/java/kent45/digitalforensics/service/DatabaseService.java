@@ -21,41 +21,37 @@ public class DatabaseService {
     }
 
     /**
-     * Determines if the provided username and password are found in the database
-     * @param username username
-     * @return Query Success/failure
-     */
-    public boolean checkLogin(String username) {
-        // Set up the query
-        var query = "SELECT * FROM Users WHERE Username = ?";
-
-        // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
-        var parameters = new ArrayList<>();
-        parameters.add(username);
-
-        var results = runSelectQuery(query, parameters);
-        try {
-            // If the results are empty then the username and password are invalid, as it is empty then results.next() will return false
-            // Else, the username and password and valid, as the results are not empty results.next() will return true
-            return results.next();
-        } catch (Exception e) {
-            // If for whatever reason the above return fails we have a fallback
-            return false;
-        }
-    }
-
-    /**
      * Add a new user to the database
      * @param username username
      * @return Query Success/failure
      */
-    public boolean createUser(String username){
+    public boolean addUser(String username){
         // SQL query to insert values into the users table
         var query = "INSERT INTO Users (username) VALUES(?)";
 
         //Sets the parameters in the query to the username, password and doctorID
         var params = new ArrayList<>();
         params.add(username);
+
+        // If the query has failed it'll return 0 so return false, otherwise true
+        //  The query will usually of failed because there is already a username with that name
+        return runUpdateQuery(query, params) != 0;
+    }
+
+    /**
+     * Add a new user to the database
+     * @param username username
+     * @param score score
+     * @return Query Success/failure
+     */
+    public boolean addUserAndScore(String username, int score){
+        // SQL query to insert values into the users table
+        var query = "INSERT INTO Users (username, score) VALUES(?, ?)";
+
+        //Sets the parameters in the query to the username, password and doctorID
+        var params = new ArrayList<>();
+        params.add(username);
+        params.add(score);
 
         // If the query has failed it'll return 0 so return false, otherwise true
         //  The query will usually of failed because there is already a username with that name

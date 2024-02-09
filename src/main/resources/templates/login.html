@@ -10,15 +10,9 @@
 <h2>Login: </h2>
 
 <form action="/login" method="post">
-    <!-- th:value to prefill if given (When redirected back after incorrect username/password) -->
     <input id="username" name="username" placeholder="Username" required type="text" th:value="${username}"/>
     <button type="submit">Login</button>
 </form>
-
-<!-- This will display the text if login failed -->
-<p th:if="${failedLogin}"> Incorrect username </p>
-
-<a href="#" onclick="location.href='/register'">Don't have a user? Register</a>
 
 </body>
 </html>
