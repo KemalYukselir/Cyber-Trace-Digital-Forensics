@@ -12,11 +12,27 @@
             /* background-position: center;             */
         }
 
-      .mainMenuButtons button {
-            padding: 20px;
-            display: block;
-            background: none;
-            border: none;
+        .mainMenuButtons button {
+            background-color: "grey"; /* Grey background */
+            border: 1px solid green; /* Green border */
+            border-radius: 10px; /* Border corner radius */
+            color: black; /* White text */
+            cursor: pointer; /* Pointer/hand icon */
+            width: 350px; /* Set a width */
+            height: 70px; /* Set a height */
+            margin-bottom: 40px;
+            display: block; /* Make the buttons appear below each other */
+            position: relative;
+            top: 500px;
+            left: 200px;
+        }
+
+        #creditsButton {
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            background-color: "grey"; /* Grey background */
+            border: 1px solid green; /* Green border */
             border-radius: 10px; /* Border corner radius */
             cursor: pointer; /* Pointer/hand icon */
             width: 300px; /* Set a width */
@@ -98,8 +114,8 @@
             color: white;
         }
         .logoHolder img {
-            width: 200px; 
-            height: 200px;
+            width: 400px;
+            height: 400px;
             position: absolute;
             bottom: 0px;
             right: 10px;
@@ -123,27 +139,25 @@
 
     <div class="titleSection">
         <div id="gameTitle">
-            <b>CyberTrace</b> 
+            <b>CyberTrace</b>
         </div>
         <div id="sloganDesc">
-            <b>A Digital Forensics Game</b> 
+            <b>Investigate. Decide. Catch the criminal</b>
         </div>
-
     </div>
 
-    <div class="yellowStrip">
-
+    <div class="mainMenuButtons">
+        <button onclick="location.href='/login'">Start Game</button>
+        <button onclick="location.href = '/leaderboard'">Leaderboard</button>
+        <button onclick="location.href = '/tutorial'">Tutorial</button>
     </div>
 
-    <div class="mainMenuButtons"> 
-        <button onclick="window.location.href = 'dashboard.html';" type="button">Start Game</button>
-        <button onclick="window.location.href = 'leaderboard.html';" type="button">Leaderboard</button>
-        <button onclick="window.location.href = 'tutorial.html';" type="button">Tutorial</button>
-        <button onclick="window.location.href = 'credits.html';" type="button">Credits</button>
+    <!-- Credit button -->
+    <button onclick="location.href = '/credits'" id="creditsButton">Credits</button>
+
+    <div class="audioHolder">
+        <img src="../img/audioLogo.jpg">
     </div>
-    <!-- <div class="audioHolder">
-        <img src="../img/sound-off.png">
-    </div> -->
 
 </body>
 </html>
