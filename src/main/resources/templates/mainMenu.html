@@ -15,25 +15,25 @@
         }
 
         .mainMenuButtons button {
-        background-color: "grey"; /* Green background */
-        border: 1px solid green; /* Green border */
-        border-radius: 10px; /* Border corner radius */
-        color: black; /* White text */
-        cursor: pointer; /* Pointer/hand icon */
-        width: 350px; /* Set a width */
-        height: 70px; /* Set a height */
-        margin-bottom: 40px;
-        display: block; /* Make the buttons appear below each other */
-        position: relative;
-        top: 500px;
-        left: 200px;
+            background-color: "grey"; /* Grey background */
+            border: 1px solid green; /* Green border */
+            border-radius: 10px; /* Border corner radius */
+            color: black; /* White text */
+            cursor: pointer; /* Pointer/hand icon */
+            width: 350px; /* Set a width */
+            height: 70px; /* Set a height */
+            margin-bottom: 40px;
+            display: block; /* Make the buttons appear below each other */
+            position: relative;
+            top: 500px;
+            left: 200px;
         }
 
         #creditsButton {
             position: absolute;
             top: 50px;
             right: 50px;
-            background-color: "grey"; /* Green background */
+            background-color: "grey"; /* Grey background */
             border: 1px solid green; /* Green border */
             border-radius: 10px; /* Border corner radius */
             color: black; /* White text */
@@ -61,7 +61,7 @@
         }
 
         .logoHolder img {
-            width: 400px; 
+            width: 400px;
             height: 400px;
             position: absolute;
             top: 70px;
@@ -85,22 +85,21 @@
 
     <div class="titleSection">
         <div id="gameTitle">
-            <b>CyberTrace</b> 
+            <b>CyberTrace</b>
         </div>
         <div id="sloganDesc">
-            <b>Investigate. Decide. Catch the criminal</b> 
+            <b>Investigate. Decide. Catch the criminal</b>
         </div>
-
     </div>
 
-    <div class="mainMenuButtons"> 
-        <button onclick="window.location.href = 'dashboard.html';" type="button">Start Game</button>
-        <button onclick="window.location.href = 'leaderboard.html';" type="button">Leaderboard</button>
-        <button onclick="window.location.href = 'tutorial.html';" type="button">Tutorial</button>
+    <div class="mainMenuButtons">
+        <button onclick="location.href='/login'">Start Game</button>
+        <button onclick="location.href = '/leaderboard'">Leaderboard</button>
+        <button onclick="location.href = '/tutorial'">Tutorial</button>
     </div>
 
     <!-- Credit button -->
-    <button onclick="window.location.href = 'credits.html';" type="button" id="creditsButton">Credits</button>
+    <button onclick="location.href = '/credits'" id="creditsButton">Credits</button>
 
     <div class="audioHolder">
         <img src="../img/audioLogo.jpg">
