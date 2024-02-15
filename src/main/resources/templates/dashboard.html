@@ -1,184 +1,157 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scenario Dashboard</title>
     <style>
         body {
-            background-color: #989898;
-            
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('../img/investigationBackground.jpg');
+            background-size: cover;
         }
-
-        h1 {
-            font-size: 60px; /* Adjust the font size as needed */
-        }
-
-        .parent {
+        .container {
             display: flex;
             justify-content: center;
-        }
-
-        .overview {
-            width: 60%;
-            margin: 20px;
-            padding: 10px;
-            border-radius: 25px;
-            background: white;
-        }
-
-        .overview span {
-            display: block;
-        }
-
-        .judgement-form {
-            margin: 10px auto; /* Center the form horizontally */
-            text-align: center; /* Center the button horizontally within the form */
-        }
-
-        .judgement {
-            background: #00EFB3;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.5em;
-        }
-
-        .column-header {
-          font-size: 30px;
-          margin-left: 120px;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            font-size: 30px;
-            margin-right: 800px;
-        }
-
-        .flex-container {
-            padding: 0;
-            margin: 20px;
-            list-style: none;
-            border-radius: 25px;
-            background-color: white;
-            -ms-box-orient: horizontal;
-            display: -webkit-box;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: -moz-flex;
-            display: -webkit-flex;
-            display: flex;
-            height: 600px;
-        }
-
-        .column {
-            -webkit-flex-direction: column;
+            height: 100vh;
             flex-direction: column;
-            width: 30%;
-            align-items: center;
         }
-
-        .column li {
-            background: #989898;
-            padding: 5px;
-            width: 75%;
-            height: 50px;
-            margin: 40px;
-            line-height: 50px;
-            color: white;
-            font-weight: bold;
-            font-size: 1.5em;
-            text-align: center;
-            cursor: pointer; /* Add this line to make the cursor change on hover */
+        .dashboard {
+            background-color: rgba(255, 255, 255, 0.3);
             border-radius: 10px;
+            padding: 20px;
+            width: 80%;
+            height: 80%;
+            max-width: 1400px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+        }
+        h1 {
+            color: white;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .options ul{
+            list-style-type: none; /* Add this line to remove bullet points */
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            flex: 1;
+        }
+        .options li {
+            margin: 50px 10px;
+        }
+        .options li button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 30px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            width: 350px;
+           
+        }
+        .options li button:hover {
+            background-color: #45a049;
+        }
+        .overview {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            flex: 2;
+            margin-left: 20px;
+        }
+        .overview h2 {
+            margin-top: 0;
+            text-align: left; /* Align the h2 text to the left */
         }
 
+        .overview p {
+            margin: 0;
+            line-height: 1.5;
+            text-align: left;
+        }
         .back-button {
             position: fixed;
             bottom: 20px;
             right: 20px;
         }
-
         .back-button button {
-            padding: 10px 20px;
-            background-color: #00EFB3;
+            background-color: #f44336;
             color: white;
             border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            transition: background-color 0.3s;
         }
-
         .back-button button:hover {
-            background-color: #00cc9a;
+            background-color: #d32f2f;
         }
     </style>
-    <meta charset="UTF-8">
-    <title>Scenario Dashboard</title>
-    <h1>Digital Forensics</h1>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var overviewSpan = document.querySelector('.overview span');
-
-            function updateOverviewText(text) {
-                overviewSpan.textContent = text;
-            }
-
-            function handleButtonClick(buttonText) {
-                switch (buttonText) {
-                    case 'Emails':
-                        updateOverviewText("Emails overview text goes here.");
-                        break;
-                    case 'Transaction History':
-                        updateOverviewText("Transaction History overview text goes here.");
-                        break;
-                    case 'Messages Exchanged':
-                        updateOverviewText("Prosecution includes a chain of incriminating emails found on Lens’ computer which discuss plans and tactics of the attack.\n\nCybersecurity expert explains how email accounts can be compromised and presents evidence showing Lens accounts could’ve been vulnerable.\n\nDefence says incriminating emails were planted by a third party.");
-                        break;
-                    case 'Records':
-                        updateOverviewText("Records overview text goes here.");
-                        break;
-                
-                }
-            }
-
-            var buttons = document.querySelectorAll('.flex-container.column li');
-
-            buttons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    handleButtonClick(button.textContent);
-                });
-            });
-        });
-
-    </script>
 </head>
-
 <body>
-    <div class="header-container">
-        <div class="column-header">Client Details</div>
-        <div>Overview</div>
-    </div>
-    <div class="parent">
-        <ul class="flex-container column center">
-            <li>Emails</li>
-            <li>Transaction History</li>
-            <li>Messages Exchanged</li>
-            <li>Records</li>
-        </ul>
-        <div class="overview">
-            <!-- Thymeleaf tags for scenario subject and overview -->
-            <span th:text="${scenario.subject}" />
-            <span th:text="${scenario.overview}" />
+    <div class="container">
+        <h1>Scenario Dashboard</h1>
+        <div class="dashboard">
+            <div class="options">
+                <ul>
+                    <li><button onclick="handleButtonClick('Emails')">Emails</button></li>
+                    <li><button onclick="handleButtonClick('Transaction History')">Transaction History</button></li>
+                    <li><button onclick="handleButtonClick('Messages Exchanged')">Messages Exchanged</button></li>
+                    <li><button onclick="handleButtonClick('Records')">Records</button></li>
+                    <li><button onclick="handleButtonClick('Make Judgement')">Make Judgement</button></li>
+                </ul>
+            </div>
+            <div class="overview">
+                <h2 id="dashboardTitle">Overview</h2>
+                <p id="overviewText">Select an option to view overview.</p>
+            </div>
         </div>
     </div>
-    <form class="judgement-form" action="/judgement" method="get">
-        <button type="submit" class="judgement">Make Judgement</button>
-    </form>
     <div class="back-button">
-        <button onclick="location.href='/mainMenu'">Back</button>
+        <button onclick="goBack()">Back</button>
     </div>
+    <script>
+        function handleButtonClick(buttonText) {
+            var overviewText = document.getElementById('overviewText');
+            switch (buttonText) {
+                case 'Emails':
+                    overviewText.textContent = "Emails overview text goes here.";
+                    dashboardTitle.textContent = "Emails";
+                    break;
+                case 'Transaction History':
+                    overviewText.textContent = "Transaction History overview text goes here.";
+                    dashboardTitle.textContent = "Transaction History";
+                    break;
+                case 'Messages Exchanged':
+                    overviewText.textContent = "Prosecution includes a chain of incriminating emails found on Lens’ computer which discuss plans and tactics of the attack.\n\nCybersecurity expert explains how email accounts can be compromised and presents evidence showing Lens accounts could’ve been vulnerable.\n\nDefence says incriminating emails were planted by a third party.";
+                    dashboardTitle.textContent = "Messages Exchanged";
+                    break;
+                case 'Records':
+                    overviewText.textContent = "Records overview text goes here.";
+                    dashboardTitle.textContent = "Records";
+                    break;
+            }
+        }
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
-
 </html>
