@@ -6,24 +6,33 @@
     <title>Leaderboard</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-image: url('../img/CityscapeAtNight.jpg');
+            background-size: cover;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .leaderboard {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            width: 80%;
+            height: 80%;
+            max-width: 1200px; /* Adjusted max-width */
+            max-height: 700px;
         }
 
         h2 {
             text-align: center;
-        }
-
-        .leaderboard-container {
-            max-width: 1000px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         table {
@@ -45,7 +54,7 @@
         .back-button {
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            right: 20px; /* Adjusted position */
         }
 
         .back-button button {
@@ -65,7 +74,8 @@
 </head>
 <body>
 
-    <div class="leaderboard-container">
+<div class="container">
+    <div class="leaderboard">
         <h2>Leaderboard</h2>
         <table>
             <thead>
@@ -90,10 +100,11 @@
             </tbody>
         </table>
     </div>
+</div>
 
-    <div class="back-button">
-        <button onclick="location.href='mainMenu.html'">Back</button>
-    </div>
+<div class="back-button">
+    <button onclick="location.href='mainMenu.html'">Back</button>
+</div>
 
 </body>
 </html>
