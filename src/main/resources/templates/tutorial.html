@@ -4,94 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutorial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        /* Global Styles */
+        
         body {
+            background-image: url('../img/detectivesOfficeCrimeScene.jpg');
+            background-size: cover;
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* Container Styles */
         .tutorial-container {
-            max-width: 1200px;
-            height: 700px;
+            max-width: 800px;
             margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8); /* Changed background color with opacity for better readability */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Increased shadow for better contrast */
         }
 
+        /* Heading Styles */
         h2 {
+            top: 30px;
+
             color: #333;
             text-align: center;
         }
 
+        /* Step Styles */
+        .tutorial-step {
+            margin-top: 30px;
+        }
+
+        h3 {
+            color: #555;
+        }
+
         p {
             line-height: 1.6;
+            color: #777;
         }
 
-        .tutorial-step {
-            margin-top: 20px;
-        }
-
+        /* Back Button Styles */
         .back-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
+            text-align: center;
+            margin-top: 40px;
         }
 
         .back-button button {
             padding: 10px 20px;
-            background-color: #00EFB3;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s ease;
         }
 
         .back-button button:hover {
-            background-color: #00cc9a;
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
 
     <div class="tutorial-container">
-        <h2>Tutorial</h2>
+        <h2>Welcome to the Tutorial</h2>
 
         <div class="tutorial-step">
             <h3>Goal and Scoring</h3>
             <p>
-                You will have to go through a bunch of user scenarios where you will have to make a descision on this particular scenario. You may be wrong or right
-                and you will be scored based on your performacne which will then go on the leaderboard. Get investigating!
+                In this tutorial, you'll face various user scenarios where you'll make decisions. Your performance will be scored and displayed on the leaderboard. Get ready to investigate!
             </p>
         </div>
 
         <div class="tutorial-step">
-            <h3>Review Details and Informations Showcased</h3>
+            <h3>Review Details and Information</h3>
             <p>
-                There are many materials and resources to go through in the game, e.g the users emails or transactions. Make sure to carefully read 
-                through these informations and pick up on any alerting information. You may miss any information that would of been crucial.
+                Take your time to examine materials like user emails or transactions. Pay attention to any alerts or important information. Missing crucial details could impact your decision.
             </p>
         </div>
 
         <div class="tutorial-step">
-            <h3>Make Judgment!</h3>
+            <h3>Make Your Judgment!</h3>
             <p>
-                After thoroughly reviewing the information and user details, it is your choice to determine whether 
-                the individual is innocent or warrants further consideration. You will then be scored on this decision so be careful.
+                After reviewing the information, it's up to you to decide whether the individual is innocent or requires further consideration. Your decision will affect your score, so choose wisely.
             </p>
         </div>
-
-        <!-- Add more tutorial steps as needed -->
-
     </div>
 
     <div class="back-button">
-        <button onclick="location.href='mainMenu.html'">Back</button>
+        <button onclick="location.href='mainMenu.html'"><i class="fas fa-chevron-left"></i> Back to Main Menu</button>
     </div>
 
 </body>

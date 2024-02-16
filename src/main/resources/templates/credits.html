@@ -1,75 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Credits</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Credits</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
 
-    .credits-container {
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    }
+            font-family: 'Roboto', sans-serif;
+            background-color: #0F0F0F;
+            color: #FFFFFF;
+        }
 
-    .credit {
-        margin-bottom: 10px;
-    }
+        header {
+            text-align: center;
+            margin-top: 40px;
+        }
 
-    .back-button {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-    }
+        .credits-container {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            animation: creditsScroll 20s linear infinite;
+        }
 
-    .back-button button {
-        padding: 10px 20px;
-        background-color: #00EFB3;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
+        @keyframes creditsScroll {
+            from {
+                transform: translateY(-60%);
+            }
+            to {
+                transform: translateY(25%);
+            }
+        }
 
-    .back-button button:hover {
-        background-color: #00cc9a;
-    }
-</style>
+        .credit {
+            margin-bottom: 10px;
+            padding: 20px;
+        }
+
+        .credit strong {
+            color: #00EFB3;
+        }
+
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .back-button button {
+            padding: 10px 20px;
+            background-color: #00EFB3;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button button:hover {
+            background-color: #00cc9a;
+        }
+    </style>
 </head>
 <body>
-<div class="credits-container">
-    <h1>Game Credits</h1>
-    <div class="credit">
-        <strong>Game Developer:</strong> Your Name
-    </div>
-    <div class="credit">
-        <strong>Game Designer:</strong> Designer's Name
-    </div>
-    <div class="credit">
-        <strong>Artwork:</strong> Artist's Name
-    </div>
-    <div class="credit">
-        <strong>Music:</strong> Composer's Name
-    </div>
-    <div class="credit">
-        <strong>Special Thanks:</strong> Special Thanks to anyone you'd like to acknowledge
-    </div>
-</div>
+    <header>
+        <h1>Game Credits</h1>
+    </header>
 
-<div class="back-button">
-    <button onclick="location.href='mainMenu.html'">Back</button>
-</div>
+    <main class="credits-container">
+        <div class="credit">
+            <strong>Team:</strong> Daniel Gurney, Kemal Yukselir, Arjan Sidharh, James Garry, William Newstead
+        </div>
+        <div class="credit">
+            <strong>Game Developer:</strong> Team
+        </div>
+        <div class="credit">
+            <strong>Game Designer:</strong> Team
+        </div>
+        <div class="credit">
+            <strong>UI Designs:</strong> Kemal Yukselir, Arjan Sidharh
+        </div>
+        <div class="credit">
+            <strong>Database Design:</strong> James Garry, William Newstead
+        </div>
+        <div class="credit">
+            <strong>Scenarios:</strong> Kemal Yukselir, Arjan Sidharh, William Newstead
+        </div>
+        <div class="credit">
+            <strong>Supervisor:</strong> Vanessa Bonthuys
+        </div>
+        <div class="credit">
+            <strong>Frontend:</strong> HTML / CSS / JS
+        </div>
+        <div class="credit">
+            <strong>Backend:</strong> Java with Spring Framework
+        </div>
+        <div class="credit">
+            <strong>Database:</strong> SQL
+        </div>
+    </main>
+
+    <footer class="back-button">
+        <button onclick="goBack()">Back</button>
+    </footer>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>
