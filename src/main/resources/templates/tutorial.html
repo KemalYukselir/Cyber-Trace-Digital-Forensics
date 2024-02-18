@@ -19,18 +19,16 @@
 
         /* Container Styles */
         .tutorial-container {
-            max-width: 800px;
-            margin: 20px auto;
+            max-width: 1100px;
+            margin: 100px auto 20px; /* Added margin-top: 100px */
             background-color: rgba(255, 255, 255, 0.8); /* Changed background color with opacity for better readability */
-            padding: 30px;
+            padding: 40px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Increased shadow for better contrast */
         }
 
         /* Heading Styles */
         h2 {
-            top: 30px;
-
             color: #333;
             text-align: center;
         }
@@ -41,7 +39,7 @@
         }
 
         h3 {
-            color: #555;
+            color: black;
         }
 
         p {
@@ -77,16 +75,18 @@
         <h2>Welcome to the Tutorial</h2>
 
         <div class="tutorial-step">
-            <h3>Goal and Scoring</h3>
+            <h3>User Scenarios</h3>
             <p>
-                In this tutorial, you'll face various user scenarios where you'll make decisions. Your performance will be scored and displayed on the leaderboard. Get ready to investigate!
+                In this game, you'll encounter different user scenarios, ranging from planned crimes to friendly jokes. Take your time to go through them carefully.
+                <!-- In this tutorial, you'll face various user scenarios where you'll make decisions. Your performance will be scored and displayed on the leaderboard. Get ready to investigate! -->
             </p>
         </div>
 
         <div class="tutorial-step">
             <h3>Review Details and Information</h3>
             <p>
-                Take your time to examine materials like user emails or transactions. Pay attention to any alerts or important information. Missing crucial details could impact your decision.
+                Take your time to examine materials like user emails or transactions. Pay attention to any alerts or important information. Missing crucial details could impact your decision
+                and lower your score.
             </p>
         </div>
 
@@ -94,6 +94,13 @@
             <h3>Make Your Judgment!</h3>
             <p>
                 After reviewing the information, it's up to you to decide whether the individual is innocent or requires further consideration. Your decision will affect your score, so choose wisely.
+            </p>
+        </div>
+
+        <div class="tutorial-step">
+            <h3>Scoring</h3>
+            <p>
+                After making your choice, you'll earn points based on correctness and speed. Correct answers and quick responses earn more points. You can also earn bonus points for consecutive correct answers, or lose points for consecutive incorrect ones.
             </p>
         </div>
     </div>

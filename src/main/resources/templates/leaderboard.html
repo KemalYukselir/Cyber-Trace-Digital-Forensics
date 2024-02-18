@@ -6,14 +6,11 @@
     <title>Leaderboard</title>
     <style>
         body {
-            background-image: url('../img/CityscapeAtNight.jpg');
+            background-image: url('../img/leaderboardBackground.webp'), linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)); /* Overlaying semi-transparent black layer */
             background-size: cover;
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-        }
-
-        .container {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,13 +23,15 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             padding: 20px;
             width: 80%;
+            max-width: 800px;
             height: 80%;
-            max-width: 1200px; /* Adjusted max-width */
-            max-height: 700px;
+            max-height: 600px;
+            overflow: auto;
         }
 
         h2 {
             text-align: center;
+            margin-top: 0;
         }
 
         table {
@@ -54,7 +53,7 @@
         .back-button {
             position: fixed;
             bottom: 20px;
-            right: 20px; /* Adjusted position */
+            right: 20px;
         }
 
         .back-button button {
@@ -74,32 +73,30 @@
 </head>
 <body>
 
-<div class="container">
-    <div class="leaderboard">
-        <h2>Leaderboard</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Player 1</td>
-                    <td>5000</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Player 2</td>
-                    <td>4500</td>
-                </tr>
-                <!-- Add more rows as needed -->
-            </tbody>
-        </table>
-    </div>
+<div class="leaderboard">
+    <h2>Leaderboard</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Player 1</td>
+                <td>5000</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Player 2</td>
+                <td>4500</td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
 </div>
 
 <div class="back-button">
