@@ -4,92 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutorial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        /* Global Styles */
+        
         body {
+            background-image: url('../img/detectivesOfficeCrimeScene.jpg');
+            background-size: cover;
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* Container Styles */
         .tutorial-container {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1100px;
+            margin: 100px auto 20px; /* Added margin-top: 100px */
+            background-color: rgba(255, 255, 255, 0.8); /* Changed background color with opacity for better readability */
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Increased shadow for better contrast */
         }
 
+        /* Heading Styles */
         h2 {
             color: #333;
+            text-align: center;
+        }
+
+        /* Step Styles */
+        .tutorial-step {
+            margin-top: 30px;
+        }
+
+        h3 {
+            color: black;
         }
 
         p {
             line-height: 1.6;
+            color: #777;
         }
 
-        .tutorial-step {
-            margin-top: 20px;
-        }
-
+        /* Back Button Styles */
         .back-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
+            text-align: center;
+            margin-top: 40px;
         }
 
         .back-button button {
             padding: 10px 20px;
-            background-color: #00EFB3;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s ease;
         }
 
         .back-button button:hover {
-            background-color: #00cc9a;
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
 
     <div class="tutorial-container">
-        <h2>Tutorial</h2>
+        <h2>Welcome to the Tutorial</h2>
 
         <div class="tutorial-step">
-            <h3>Step 1: Getting Started</h3>
+            <h3>User Scenarios</h3>
             <p>
-                Welcome to our game tutorial! In this step, we'll cover the basics of getting started with the game.
-                Make sure you have the game installed and launch it to begin your journey.
+                In this game, you'll encounter different user scenarios, ranging from planned crimes to friendly jokes. Take your time to go through them carefully.
+                <!-- In this tutorial, you'll face various user scenarios where you'll make decisions. Your performance will be scored and displayed on the leaderboard. Get ready to investigate! -->
             </p>
         </div>
 
         <div class="tutorial-step">
-            <h3>Step 2: Gameplay</h3>
+            <h3>Review Details and Information</h3>
             <p>
-                Learn about the game mechanics, controls, and objectives. This is where you understand how to play and
-                what you need to achieve to succeed in the game.
+                Take your time to examine materials like user emails or transactions. Pay attention to any alerts or important information. Missing crucial details could impact your decision
+                and lower your score.
             </p>
         </div>
 
         <div class="tutorial-step">
-            <h3>Step 3: Tips and Tricks</h3>
+            <h3>Make Your Judgment!</h3>
             <p>
-                Discover some useful tips and tricks that can help you excel in the game. Mastering these techniques
-                will enhance your gaming experience and make you a pro player.
+                After reviewing the information, it's up to you to decide whether the individual is innocent or requires further consideration. Your decision will affect your score, so choose wisely.
             </p>
         </div>
 
-        <!-- Add more tutorial steps as needed -->
-
+        <div class="tutorial-step">
+            <h3>Scoring</h3>
+            <p>
+                After making your choice, you'll earn points based on correctness and speed. Correct answers and quick responses earn more points. You can also earn bonus points for consecutive correct answers, or lose points for consecutive incorrect ones.
+            </p>
+        </div>
     </div>
 
     <div class="back-button">
-        <button onclick="location.href='/mainMenu'">Back</button>
+        <button onclick="location.href='mainMenu.html'"><i class="fas fa-chevron-left"></i> Back to Main Menu</button>
     </div>
 
 </body>
