@@ -116,7 +116,10 @@
                     <li><button onclick="handleButtonClick('Transaction History')">Transaction History</button></li>
                     <li><button onclick="handleButtonClick('Messages Exchanged')">Messages Exchanged</button></li>
                     <li><button onclick="handleButtonClick('Records')">Records</button></li>
-                    <li><button onclick="handleButtonClick('Make Judgement')">Make Judgement</button></li>
+
+                    <form class="judgement-form" action="/judgement" method="get">
+                        <li><button type="submit" class="judgement">Make Judgement</button></li>
+                    </form>
                 </ul>
             </div>
             <div class="overview">
