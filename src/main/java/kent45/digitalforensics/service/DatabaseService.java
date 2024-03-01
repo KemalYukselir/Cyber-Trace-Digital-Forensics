@@ -60,6 +60,10 @@ public class DatabaseService {
         return runUpdateQuery(query, params) != 0;
     }
 
+    /**
+     * Picks a random scenario from the scenarios table
+     * @return Scenario ID
+     */
     public int randomScenario() {
         var query = "SELECT scenarioId FROM Scenarios ORDER BY RAND() LIMIT 1";
 
@@ -109,8 +113,16 @@ public class DatabaseService {
         return null;
     }
 
-    private <J> List<J> getTableData(int scenarioId, String table, SQLFunction<ResultSet, J> constructor)  {
-        ArrayList<J> returnList = new ArrayList<>();
+    /**
+     * Helper method for creating a list of objects from a table, for a given scenario
+     * @param scenarioId Scenario data is related to
+     * @param table Name of the table to query
+     * @param constructor Method for creating an object of type J from a ResultSet
+     * @return List of constructed objects from the query
+     * @param <R> Type of object to return
+     */
+    private <R> List<R> getTableData(int scenarioId, String table, SQLFunction<ResultSet, R> constructor)  {
+        ArrayList<R> returnList = new ArrayList<>();
 
         var query = "SELECT * FROM %s WHERE scenarioId = ?".formatted(table);
 
@@ -195,6 +207,11 @@ public class DatabaseService {
         return preparedStatement;
     }
 
+    /**
+     * A functional interface for a function which can throw an SQL exception
+     * @param <T> Input type for the function
+     * @param <R> Return type of the function
+     */
     @FunctionalInterface
     interface SQLFunction<T, R> extends Function<T, R> {
         @Override

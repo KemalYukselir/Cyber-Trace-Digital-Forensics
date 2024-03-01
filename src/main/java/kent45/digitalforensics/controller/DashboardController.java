@@ -16,12 +16,10 @@ public class DashboardController {
     final static int TEST_SCENARIO = 1;
 
     private final DatabaseService databaseService;
-    private final Random random;
 
     @Autowired
     public DashboardController(DatabaseService databaseService) {
         this.databaseService = databaseService;
-        random = new Random();
     }
 
     @GetMapping("/dashboard")
