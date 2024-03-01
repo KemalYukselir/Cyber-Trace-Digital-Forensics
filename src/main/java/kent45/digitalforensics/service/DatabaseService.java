@@ -1,10 +1,12 @@
 package kent45.digitalforensics.service;
 
-import kent45.digitalforensics.model.Scenario;
+import kent45.digitalforensics.model.*;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 
 @Service
 public class DatabaseService {
@@ -58,12 +60,26 @@ public class DatabaseService {
         return runUpdateQuery(query, params) != 0;
     }
 
+    public int randomScenario() {
+        var query = "SELECT scenarioId FROM Scenarios ORDER BY RAND() LIMIT 1";
+
+        try (ResultSet results = runSelectQuery(query, new ArrayList<>())) {
+            if (results != null) {
+                results.next();
+                return results.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return 0;
+    }
+
     /**
      * Get scenario data
      * @param scenarioId the scenario ID
      * @return Scenario data
      */
-    public Scenario getScenario(int scenarioId) {
+    public ScenarioJson getScenario(int scenarioId) {
         var query = "SELECT * FROM Scenarios WHERE scenarioId = ?";
 
         // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
@@ -74,22 +90,44 @@ public class DatabaseService {
             if (results != null) {
                 results.next();
 
-                return new Scenario(
+                return new ScenarioJson(
                         scenarioId,
                         results.getString(2),
                         results.getString(3),
+                        getTableData(scenarioId, "Emails", x -> new EmailJson(x.getString(3), x.getString(4))),
+                        getTableData(scenarioId, "Payments", x -> new PaymentJson(x.getString(3), x.getInt(4))),
+                        getTableData(scenarioId, "TextMessages", x -> new TextJson(x.getString(3), x.getString(4))),
+                        getTableData(scenarioId, "Records", x -> new RecordJson(x.getString(3), x.getString(4))),
                         results.getInt(4),
                         results.getBoolean(5)
                 );
             }
         } catch (SQLException e) {
-
+            System.err.println(e.getMessage());
         }
 
         return null;
     }
 
+    private <J> List<J> getTableData(int scenarioId, String table, SQLFunction<ResultSet, J> constructor)  {
+        ArrayList<J> returnList = new ArrayList<>();
 
+        var query = "SELECT * FROM %s WHERE scenarioId = ?".formatted(table);
+
+        // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
+        var parameters = new ArrayList<>();
+        parameters.add(scenarioId);
+
+        try (ResultSet results = runSelectQuery(query, parameters)) {
+            while (results.next()) {
+                returnList.add(constructor.apply(results));
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return returnList;
+    }
 
     /**
      *  A general select query method with parameters of String or int
@@ -155,5 +193,20 @@ public class DatabaseService {
         }
 
         return preparedStatement;
+    }
+
+    @FunctionalInterface
+    interface SQLFunction<T, R> extends Function<T, R> {
+        @Override
+        default R apply(final T elem) {
+            try {
+                return applyThrows(elem);
+            } catch (final SQLException e) {
+                System.err.println("SQL error when parsing data in lambda function");
+                return null;
+            }
+        }
+
+        R applyThrows(T elem) throws SQLException;
     }
 }

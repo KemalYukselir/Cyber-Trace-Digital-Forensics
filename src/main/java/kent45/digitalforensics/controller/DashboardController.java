@@ -1,6 +1,6 @@
 package kent45.digitalforensics.controller;
 
-import kent45.digitalforensics.model.Scenario;
+import kent45.digitalforensics.model.ScenarioJson;
 import kent45.digitalforensics.service.DatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,24 +8,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Random;
+
 @Controller
 public class DashboardController {
 
     final static int TEST_SCENARIO = 1;
 
     private final DatabaseService databaseService;
+    private final Random random;
 
     @Autowired
     public DashboardController(DatabaseService databaseService) {
         this.databaseService = databaseService;
+        random = new Random();
     }
 
     @GetMapping("/dashboard")
     public ModelAndView getDashboard() {
-        Scenario scenario = databaseService.getScenario(TEST_SCENARIO);
+        ScenarioJson scenarioJson = databaseService.getScenario(databaseService.randomScenario());
 
         return new ModelAndView("dashboard")
-                .addObject("scenario", scenario);
+                .addObject("scenario", scenarioJson);
     }
 
     @GetMapping("/judgement")
@@ -35,19 +39,19 @@ public class DashboardController {
 
     @PostMapping("/judgement/guilty")
     public ModelAndView judgement_guilty() {
-        Scenario scenario = databaseService.getScenario(TEST_SCENARIO);
+        ScenarioJson scenarioJson = databaseService.getScenario(TEST_SCENARIO);
 
         return new ModelAndView("judgementScenario")
                 .addObject("judgement", "guilty")
-                .addObject("isGuilty", scenario.isGuilty());
+                .addObject("isGuilty", scenarioJson.isGuilty());
     }
 
     @PostMapping("/judgement/innocent")
     public ModelAndView judgement_innocent() {
-        Scenario scenario = databaseService.getScenario(TEST_SCENARIO);
+        ScenarioJson scenarioJson = databaseService.getScenario(TEST_SCENARIO);
 
         return new ModelAndView("judgementScenario")
                 .addObject("judgement", "innocent")
-                .addObject("isGuilty", scenario.isGuilty());
+                .addObject("isGuilty", scenarioJson.isGuilty());
     }
 }

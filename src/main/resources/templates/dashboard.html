@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -58,7 +59,7 @@
             transition: background-color 0.3s;
             display: block;
             width: 350px;
-           
+
         }
         .options li button:hover {
             background-color: #45a049;
@@ -121,6 +122,54 @@
             <div class="overview">
                 <h2 id="dashboardTitle">Overview</h2>
                 <p id="overviewText">Select an option to view overview.</p>
+
+                <table id="textsTable" class="dataTable" style="display:none">
+                    <tbody>
+                        <tr th:if="${scenario.texts.empty}">
+                            <td>No texts available</td>
+                        </tr>
+                        <tr th:each="text : ${scenario.texts}">
+                            <td><b><span th:text="${text.contact}"> Contact </span></b></td>
+                            <td><span th:text="${text.text}"> Contact </span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table id="emailsTable" class="dataTable" style="display:none">
+                    <tbody>
+                        <tr th:if="${scenario.emails.empty}">
+                            <td>No emails available</td>
+                        </tr>
+                        <tr th:each="email : ${scenario.emails}">
+                            <td><b><span th:text="${email.header}"> Header </span></b></td>
+                            <td><span th:text="${email.body}"> Body </span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table id="paymentsTable" class="dataTable" style="display:none">
+                    <tbody>
+                        <tr th:if="${scenario.payments.empty}">
+                            <td>No payments available</td>
+                        </tr>
+                        <tr th:each="payment : ${scenario.payments}">
+                            <td><b><span th:text="${payment.name}"> Name </span></b></td>
+                            <td><span th:text="'£' + ${payment.price}"> Price </span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table id="recordsTable" class="dataTable" style="display:none">
+                    <tbody>
+                        <tr th:if="${scenario.records.empty}">
+                            <td>No records available, or no criminal record</td>
+                        </tr>
+                        <tr th:each="record : ${scenario.records}">
+                            <td><b><span th:text="${record.title}"> Title </span></b></td>
+                            <td><span th:text="'£' + ${record.description}"> Description </span></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -129,22 +178,30 @@
     </div>
     <script>
         function handleButtonClick(buttonText) {
+            document.getElementById('textsTable').style.display = "none";
+            document.getElementById('emailsTable').style.display = "none";
+            document.getElementById('paymentsTable').style.display = "none";
+            document.getElementById('recordsTable').style.display = "none";
             var overviewText = document.getElementById('overviewText');
             switch (buttonText) {
                 case 'Emails':
-                    overviewText.textContent = "Emails overview text goes here.";
+                    overviewText.textContent = "";
+                    document.getElementById('emailsTable').style.display = "table";
                     dashboardTitle.textContent = "Emails";
                     break;
                 case 'Transaction History':
-                    overviewText.textContent = "Transaction History overview text goes here.";
+                    overviewText.textContent = "";
+                    document.getElementById('paymentsTable').style.display = "table";
                     dashboardTitle.textContent = "Transaction History";
                     break;
                 case 'Messages Exchanged':
-                    overviewText.textContent = "Prosecution includes a chain of incriminating emails found on Lens’ computer which discuss plans and tactics of the attack.\n\nCybersecurity expert explains how email accounts can be compromised and presents evidence showing Lens accounts could’ve been vulnerable.\n\nDefence says incriminating emails were planted by a third party.";
+                    overviewText.textContent = "";
+                    document.getElementById('textsTable').style.display = "table";
                     dashboardTitle.textContent = "Messages Exchanged";
                     break;
                 case 'Records':
-                    overviewText.textContent = "Records overview text goes here.";
+                    overviewText.textContent = "";
+                    document.getElementById('recordsTable').style.display = "table";
                     dashboardTitle.textContent = "Records";
                     break;
             }
