@@ -8,10 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-
-            font-family: 'Roboto', sans-serif;
-            background-color: #0F0F0F;
-            color: #FFFFFF;
+            background-color: black;
         }
 
         header {
@@ -19,29 +16,78 @@
             margin-top: 40px;
         }
 
+        .titleSection {
+            background-color: black;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-family: 'Orbitron', sans-serif; /* Futuristic font */
+            font-size: 60px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+        }
+
+        .titleSection::before {
+            background-color: black;
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            width: 200px;
+            height: 5px;
+            background-color: #00ff00; /* Green line */
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px #00ff00; /* Glow effect */
+        }
+        
+
+        .titleSection::after {
+                        background-color: black;
+
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            width: 200px;
+            height: 5px;
+            background-color: #ff0000; /* Red line */
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px #ff0000; /* Glow effect */
+        }
+
+        #sloganDesc {
+            font-size: 25px;
+            color: white;
+        }
+
         .credits-container {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 600px;
             padding: 20px;
             animation: creditsScroll 20s linear infinite;
         }
 
         @keyframes creditsScroll {
             from {
-                transform: translateY(-60%);
+                transform: translateY(-160%);
             }
             to {
-                transform: translateY(25%);
+                transform: translateY(5%);
             }
         }
 
         .credit {
+            font-family: 'Orbitron', sans-serif; /* Futuristic font */
             margin-bottom: 10px;
             padding: 20px;
+            color: white;
         }
 
         .credit strong {
-            color: #00EFB3;
+            font-family: 'Orbitron', sans-serif; 
+            color: #0ac050;
         }
 
         .back-button {
@@ -52,7 +98,7 @@
 
         .back-button button {
             padding: 10px 20px;
-            background-color: #00EFB3;
+            background-color: #15ee56;
             color: #FFFFFF;
             border: none;
             border-radius: 5px;
@@ -67,9 +113,14 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Game Credits</h1>
-    </header>
+    <div class="titleSection">
+        <div id="gameTitle">
+            <b>CyberTrace</b>
+        </div>
+        <div id="sloganDesc">
+            <b>A Digital Forensics Experience</b>
+        </div>
+    </div>
 
     <main class="credits-container">
         <div class="credit">
@@ -105,13 +156,7 @@
     </main>
 
     <footer class="back-button">
-        <button onclick="goBack()">Back</button>
+        <button onclick="location.href='/mainMenu'">Back</button>
     </footer>
-
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
 </body>
 </html>
