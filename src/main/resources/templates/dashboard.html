@@ -177,7 +177,7 @@
         </div>
     </div>
     <div class="back-button">
-        <button onclick="goBack()">Back</button>
+        <button onclick="location.href='/mainMenu'">Back</button>
     </div>
     <script>
         function handleButtonClick(buttonText) {
@@ -208,9 +208,6 @@
                     dashboardTitle.textContent = "Records";
                     break;
             }
-        }
-        function goBack() {
-            window.history.back();
         }
     </script>
 </body>

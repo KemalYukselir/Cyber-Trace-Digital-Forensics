@@ -25,6 +25,6 @@ public class LoginController {
     public ModelAndView login(@RequestParam("username") String username) {
 
         databaseService.addUser(username);
-        return new ModelAndView("redirect:/dashboard");
+        return new ModelAndView("redirect:/mainMenu");
     }
 }
