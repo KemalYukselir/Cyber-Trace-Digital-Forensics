@@ -1,18 +1,113 @@
-
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            background-image: url('/img/cyberTraceBackground.jpg');
+            background-size: cover;
+            /* background-position: center;             */
+        }
+
+        /* Import Google Fonts API */
+        @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700&display=swap');
+
+        .mainMenuButtons button {
+            background: none;
+            border: none;
+            border-radius: 10px; /* Border corner radius */
+            color: white; /* White text */
+            cursor: pointer; /* Pointer/hand icon */
+            width: 350px; /* Set a width */
+            height: 70px; /* Set a height */
+            margin-bottom: 20px;
+            display: block; /* Make the buttons appear below each other */
+            position: relative;
+            top: 370px;
+            left: 270px;
+            font-size: 25px;
+            font-family: 'Exo 2', sans-serif; /* Use Exo 2 font */
+            font-weight: 700; /* Bold font weight */
+            letter-spacing: 1px; /* Add spacing between letters */
+            line-height: 70px; /* Center text vertically */
+            text-align: center; /* Center text horizontally */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+        /* Add hover effect */
+        .mainMenuButtons button:hover {
+            color: #45a049;
+            transform: scale(1.1); /* Grow text size on hover */
+
+        }
+        .titleSection {
+            position: absolute;
+            top: 250px;
+            left: 450px;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-family: 'Orbitron', sans-serif; /* Futuristic font */
+            color: #00ff00; /* Green text color */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+        }
+
+        .titleSection::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            width: 200px;
+            height: 5px;
+            background-color: #00ff00; /* Green line */
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px #00ff00; /* Glow effect */
+        }
+
+
+        .titleSection::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            width: 200px;
+            height: 5px;
+            background-color: #ff0000; /* Red line */
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px #ff0000; /* Glow effect */
+}
+
+        #gameTitle {
+            font-size: 90px;
+            color: white;
+
+        }
+
+        #sloganDesc {
+            font-size: 25px;
+            color: white;
+        }
+    </style>
 </head>
 <body>
+    <div class="titleSection">
+        <div id="gameTitle">
+            <b>CyberTrace</b>
+        </div>
+        <div id="sloganDesc">
+            <p>Please Login to <strong>The CyberTrace System</strong>: </p>
+        </div>
+    </div>
 
-<h2>Login: </h2>
-
-<form action="/login" method="post">
-    <input id="username" name="username" placeholder="Username" required type="text" th:value="${username}"/>
-    <button type="submit">Login</button>
-</form>
+<div class="mainMenuButtons">
+    <form action="/login" method="post">
+        <input id="username" name="username" placeholder="Username" required type="text" th:value="${username}"/>
+        <button type="submit">Login</button>
+    </form>
+</div>
 
 </body>
 </html>
