@@ -31,12 +31,31 @@ public class DatabaseService {
         // SQL query to insert values into the users table
         var query = "INSERT INTO Users (username) VALUES(?)";
 
-        //Sets the parameters in the query to the username, password and doctorID
+        //Sets the parameters in the query to the username
         var params = new ArrayList<>();
         params.add(username);
 
         // If the query has failed it'll return 0 so return false, otherwise true
         //  The query will usually of failed because there is already a username with that name
+        return runUpdateQuery(query, params) != 0;
+    }
+
+    public boolean logInUser(String username) {
+        // Remove current logged in user
+        // SQL query to delete users in table
+        var query = "DELETE FROM LoggedInUser";
+
+        // If the query has failed it'll return 0 so return false, otherwise true
+        runUpdateQuery(query, new ArrayList<>());
+
+        // SQL query to insert values into the users table
+        query = "INSERT INTO LoggedInUser VALUES(?)";
+
+        //Sets the parameters in the query to the username
+        var params = new ArrayList<>();
+        params.add(username);
+
+        // If the query has failed it'll return 0 so return false, otherwise true
         return runUpdateQuery(query, params) != 0;
     }
 
