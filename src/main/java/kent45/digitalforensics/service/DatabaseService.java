@@ -40,16 +40,17 @@ public class DatabaseService {
         return runUpdateQuery(query, params) != 0;
     }
 
+    /**
+     * Puts the given username into the LoggedInUser table
+     * @param username username
+     * @return Query Success/failure
+     */
     public boolean logInUser(String username) {
-        // Remove current logged in user
-        // SQL query to delete users in table
-        var query = "DELETE FROM LoggedInUser";
 
-        // If the query has failed it'll return 0 so return false, otherwise true
+        // SQL queries to delete users in table and insert new user into the users table
+        var query = "TRUNCATE TABLE LoggedInUser";
         runUpdateQuery(query, new ArrayList<>());
-
-        // SQL query to insert values into the users table
-        query = "INSERT INTO LoggedInUser VALUES(?)";
+        query = "INSERT INTO LoggedInUser (User) VALUES(?)";
 
         //Sets the parameters in the query to the username
         var params = new ArrayList<>();
@@ -60,23 +61,22 @@ public class DatabaseService {
     }
 
     /**
-     * Add a new user to the database
-     * @param username username
-     * @param score score
-     * @return Query Success/failure
+     * Returns the currently logged-in user
+     * @return logged in user
      */
-    public boolean addUserAndScore(String username, int score){
-        // SQL query to insert values into the users table
-        var query = "INSERT INTO Users (username, score) VALUES(?, ?)";
+    public String getLoggedInUser() {
+        var query = "SELECT user FROM LoggedInUser";
 
-        //Sets the parameters in the query to the username, password and doctorID
-        var params = new ArrayList<>();
-        params.add(username);
-        params.add(score);
+        try (ResultSet results = runSelectQuery(query, new ArrayList<>())) {
+            if (results != null) {
+                results.next();
+                return results.getString(0);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
 
-        // If the query has failed it'll return 0 so return false, otherwise true
-        //  The query will usually of failed because there is already a username with that name
-        return runUpdateQuery(query, params) != 0;
+        return "";
     }
 
     /**
