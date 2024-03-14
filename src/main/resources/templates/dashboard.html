@@ -7,81 +7,178 @@
     <title>Scenario Dashboard</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url('/img/investigationBackground.jpg');
-            background-size: cover;
+            font-family: "Courier New", monospace;
+            background-image: radial-gradient(
+                hsla(263, 88%, 10%, 0.838), black 300%
+            );
+            height: 100%; overflow: hidden;
+            /* background-image: url('img/cyberTraceBackground.jpg');
+            background-size: cover; */
+            color: white;
+            text-shadow: 0 0 2px #C8C8C8;
+            
         }
+
+        #scoreDisplay {
+            position: absolute;
+            top: 2%;
+            right: 2%;
+            font-size: 30px;
+        } 
+        
         .container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            flex-direction: column;
         }
         .dashboard {
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgb(78, 68, 86);
+            background-image: radial-gradient(
+                hsla(262, 21%, 33%, 0.838), rgb(92, 92, 92) 200%
+            );
             border-radius: 10px;
             padding: 20px;
             width: 80%;
             height: 80%;
             max-width: 1400px;
             text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(168, 164, 164, 0.719);
             display: flex;
         }
-        h1 {
-            color: white;
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
         .options ul{
-            list-style-type: none; /* Add this line to remove bullet points */
+            list-style-type: none; 
             padding: 0;
-            margin: 0;
-            text-align: left;
-            flex: 1;
+            margin: 0;            
         }
         .options li {
-            margin: 50px 10px;
+            margin: 75px 10px;
         }
         .options li button {
-            background-color: #4CAF50;
-            color: white;
+            background: none;
             border: none;
-            padding: 30px 20px;
-            text-align: center;
-            text-decoration: none;
+            padding: 40px;
             font-size: 16px;
             border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s;
             display: block;
-            width: 350px;
-
+            width: 150px;
         }
         .options li button:hover {
-            background-color: #45a049;
+            background-color: rgba(0, 0, 0, 0.1); /* Adjust the alpha value to control transparency */
         }
+
+        .judgement-container {
+            margin-left: auto; /* This will push the container to the right */
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: flex-end; /* Align buttons to the right */
+        }
+        .judgement-container li {
+            margin: 30px 5px;
+            list-style-type: none; 
+        }
+        
+        .judgement-container li button {
+            background: none;
+            width: 270px;
+            font-size: 16px;
+            height: 50px;
+            line-height: 0px;
+        }
+
+        .user-photo {
+            margin-top: 30px;
+            width: 300px; /* Adjust width as needed */
+            height: 200px; /* Adjust height as needed */
+            background-image: url('img/logoholder.png');
+            background-repeat: no-repeat;
+            background-position: center; /* Center the logo inside the button */
+            background-size: 55%; /* Adjust the size of the logo as needed */  
+        }
+
+        .user-info {
+            width: 300px; /* Adjust width as needed */
+            height: 300px; /* Adjust height as needed */
+            background-image: url('img/notepadLogo.png');
+            background-repeat: no-repeat;
+            background-position: center; /* Center the logo inside the button */
+            background-size: 90%; /* Adjust the size of the logo as needed */  
+        }
+
+        .user-info p {
+            color: black;
+            margin-top: 60px;
+            text-align: left;
+            margin-left: 40px;
+        }
+
+        #esculateButton button {
+            color: white;
+            background-color: rgb(199, 43, 43);
+            border-radius: 10px;
+        }
+
+        #notSuspiciousButton button{
+            background-color: rgb(233, 233, 204);
+            border-radius: 10px;
+        }
+        
+
+        #emailsButton {
+            background-image: url('img/mailLogo.png'); 
+            background-repeat: no-repeat;
+            background-position: center; /* Center the logo inside the button */
+            background-size: 50%; /* Adjust the size of the logo as needed */
+        }
+
+        #transactionButton {
+            background-image: url('img/transactionLogo.png'); /* Replace 'path_to_your_logo.png' with the path to your logo image */
+            background-repeat: no-repeat;
+            background-position: center; /* Center the logo inside the button */
+            background-size: 50%; /* Adjust the size of the logo as needed */
+        }
+
+        #messagesButton {
+            background-image: url('img/messagesExchangedLogo.png'); /* Replace 'path_to_your_logo.png' with the path to your logo image */
+            background-repeat: no-repeat;
+            background-position: center; /* Center the logo inside the button */
+            background-size: 50%; /* Adjust the size of the logo as needed */
+        }
+
+        #RecordsButton {
+            background-image: url('img/pastRecordsLogo.png'); /* Replace 'path_to_your_logo.png' with the path to your logo image */
+            background-repeat: no-repeat;
+            background-position: center; /* Center the logo inside the button */
+            background-size: 50%; /* Adjust the size of the logo as needed */
+        }
+
         .overview {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: black;
             border-radius: 20px;
             padding: 20px;
             margin-top: 20px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             flex: 2;
-            margin-left: 20px;
+            max-width: 900px; 
         }
+        
         .overview h2 {
             margin-top: 0;
             text-align: left; /* Align the h2 text to the left */
+            color: green;
         }
 
         .overview p {
+            color: green;
             margin: 0;
             line-height: 1.5;
             text-align: left;
+        }
+
+        .overview td {
+            color: green;
         }
         .back-button {
             position: fixed;
@@ -89,7 +186,7 @@
             right: 20px;
         }
         .back-button button {
-            background-color: #f44336;
+            background-color: #030303;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -102,26 +199,27 @@
             transition: background-color 0.3s;
         }
         .back-button button:hover {
-            background-color: #d32f2f;
+            background-color: #242323;
         }
     </style>
 </head>
 <body>
+    <div id="scoreDisplay">
+        Score: 0 <!-- Initial score display -->
+    </div>
     <div class="container">
-        <h1>Scenario Dashboard</h1>
         <div class="dashboard">
+
             <div class="options">
                 <ul>
-                    <li><button onclick="handleButtonClick('Emails')">Emails</button></li>
-                    <li><button onclick="handleButtonClick('Transaction History')">Transaction History</button></li>
-                    <li><button onclick="handleButtonClick('Messages Exchanged')">Messages Exchanged</button></li>
-                    <li><button onclick="handleButtonClick('Records')">Records</button></li>
+                    <li id= "emailsButton"><button onclick="handleButtonClick('Emails')"></button></li>
+                    <li id = "transactionButton"><button onclick="handleButtonClick('Transaction History')"></button></li>
+                    <li id = "messagesButton"><button onclick="handleButtonClick('Messages Exchanged')"></button></li>
+                    <li id = "RecordsButton"><button onclick="handleButtonClick('Records')"></button></li>
 
-                    <form class="judgement-form" action="/judgement" method="get">
-                        <li><button type="submit" class="judgement">Make Judgement</button></li>
-                    </form>
                 </ul>
             </div>
+
             <div class="overview">
                 <h2 id="dashboardTitle">Overview</h2>
                 <p id="overviewText">Select an option to view overview.</p>
@@ -174,12 +272,29 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="judgement-container">
+
+                <div class="user-photo">
+
+                </div>
+                <div class="user-info">
+                    <p>Name:</p>
+                    <p>Age:</p>
+                    <p>Sex:</p>
+                </div>
+                <ul>
+                    <li id= "esculateButton"><button onclick="handleButtonClick('Escalate')"><b>Escalate</b></button></li>
+                    <li id= "notSuspiciousButton"><button onclick="handleButtonClick('Not Suspicious')"><b>Not Suspicious</b></button></li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="back-button">
         <button onclick="location.href='/mainMenu'">Back</button>
     </div>
     <script>
+        var score = 0;
         function handleButtonClick(buttonText) {
             document.getElementById('textsTable').style.display = "none";
             document.getElementById('emailsTable').style.display = "none";
@@ -207,8 +322,17 @@
                     document.getElementById('recordsTable').style.display = "table";
                     dashboardTitle.textContent = "Records";
                     break;
+
+                case 'Escalate':
+                    score += 1;
+                    document.getElementById('scoreDisplay').textContent = "Score: " + score;
+                    break;
+                case 'Not Suspicious':
+                    score -= 1;
+                    document.getElementById('scoreDisplay').textContent = "Score: " + score;
             }
         }
+        
     </script>
 </body>
 </html>
