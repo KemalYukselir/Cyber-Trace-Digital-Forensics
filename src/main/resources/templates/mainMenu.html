@@ -112,6 +112,8 @@
     </style>
 </head>
 <body>
+    <audio id="menuAudio" loop src="/img/audio/AETHER - Density & Time.mp3" volume="0"></audio>
+    
     <div class="logoHolder">
         <img src="../img/blacklogo.png">
     </div>
@@ -140,4 +142,11 @@ x
     </div> -->
 
 </body>
+    <script>
+        window.onload = function() {
+            audio = document.getElementById("menuAudio")
+            audio.play();
+            audio.volume = 0.2;
+        }
+    </script>
 </html>
