@@ -9,25 +9,25 @@
     <style>
         body {
             background-color: black;
+            height: 100%; 
+            overflow: hidden
         }
 
         header {
             text-align: center;
             margin-top: 40px;
         }
-
         .titleSection {
             background-color: black;
             position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 35%; /* Adjust this value as needed */
+            left: 7%;
             text-align: center;
             font-family: 'Orbitron', sans-serif; /* Futuristic font */
             font-size: 60px;
             color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for depth */
         }
+
 
         .titleSection::before {
             background-color: black;
@@ -44,8 +44,7 @@
         
 
         .titleSection::after {
-                        background-color: black;
-
+            background-color: black;
             content: '';
             position: absolute;
             bottom: -20px;
@@ -66,7 +65,7 @@
             text-align: center;
             margin-top: 600px;
             padding: 20px;
-            animation: creditsScroll 20s linear infinite;
+            animation: creditsScroll 15s linear infinite;
         }
 
         @keyframes creditsScroll {
@@ -74,7 +73,7 @@
                 transform: translateY(-160%);
             }
             to {
-                transform: translateY(5%);
+                transform: translateY(45%);
             }
         }
 
