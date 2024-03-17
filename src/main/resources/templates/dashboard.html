@@ -10,7 +10,7 @@
             font-family: "Courier New", monospace;
             background-image: radial-gradient(
                 hsla(263, 88%, 10%, 0.838), black 300%);
-            height: 100%; 
+            height: 100%;
             overflow: hidden;
             color: white;
             text-shadow: 0 0 2px #C8C8C8;
@@ -54,7 +54,7 @@
             top: 20%;
             right: 3%;
             font-size: 30px;
-        } 
+        }
 
         #multiplierDisplay {
             position: absolute;
@@ -252,14 +252,14 @@
         <div class="second"></div>
         <div class="countdown" id="countdown">05:00</div>
     </div>
-    
+
 
     <audio id="menuAudio" src="/img/audio/AETHER - Density & Time.mp3"></audio>
     <div id="scoreDisplay">
         Score: 0 <!-- Initial score display -->
     </div>
     <div id="multiplierDisplay">
-        Multiplier: 
+        Multiplier:
             <div id = "multiplierValue">5x</div> <!-- Initial score display -->
     </div>
 
@@ -334,13 +334,20 @@
 
                 </div>
                 <div class="user-info">
-                    <p>Name:</p>
-                    <p>Age:</p>
-                    <p>Sex:</p>
+                    <p>Name: <span th:text="${scenario.subject}"/></p>
+                    <p>Overview: <span th:text="${scenario.overview}"/></p>
                 </div>
                 <ul>
-                    <li id= "esculateButton"><button onclick="handleButtonClick('Escalate')"><b>Escalate</b></button></li>
-                    <li id= "notSuspiciousButton"><button onclick="handleButtonClick('Not Suspicious')"><b>Not Suspicious</b></button></li>
+                    <li id= "esculateButton">
+                        <form action="/judgement/innocent" method="post">
+                            <button type="submit" onclick="handleButtonClick('Escalate')"><b>Escalate</b></button>
+                        </form>
+                    </li>
+                    <li id= "notSuspiciousButton">
+                        <form action="/judgement/guilty" method="post">
+                            <button onclick="handleButtonClick('Not Suspicious')"><b>Not Suspicious</b></button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
