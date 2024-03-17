@@ -31,7 +31,7 @@ public class DatabaseService {
         // SQL query to insert values into the users table
         var query = "INSERT INTO Users (username) VALUES(?)";
 
-        //Sets the parameters in the query to the username, password and doctorID
+        //Sets the parameters in the query to the username
         var params = new ArrayList<>();
         params.add(username);
 
@@ -41,23 +41,42 @@ public class DatabaseService {
     }
 
     /**
-     * Add a new user to the database
+     * Puts the given username into the LoggedInUser table
      * @param username username
-     * @param score score
      * @return Query Success/failure
      */
-    public boolean addUserAndScore(String username, int score){
-        // SQL query to insert values into the users table
-        var query = "INSERT INTO Users (username, score) VALUES(?, ?)";
+    public boolean logInUser(String username) {
 
-        //Sets the parameters in the query to the username, password and doctorID
+        // SQL queries to delete users in table and insert new user into the users table
+        var query = "TRUNCATE TABLE LoggedInUser";
+        runUpdateQuery(query, new ArrayList<>());
+        query = "INSERT INTO LoggedInUser (User) VALUES(?)";
+
+        //Sets the parameters in the query to the username
         var params = new ArrayList<>();
         params.add(username);
-        params.add(score);
 
         // If the query has failed it'll return 0 so return false, otherwise true
-        //  The query will usually of failed because there is already a username with that name
         return runUpdateQuery(query, params) != 0;
+    }
+
+    /**
+     * Returns the currently logged-in user
+     * @return logged in user
+     */
+    public String getLoggedInUser() {
+        var query = "SELECT user FROM LoggedInUser";
+
+        try (ResultSet results = runSelectQuery(query, new ArrayList<>())) {
+            if (results != null) {
+                results.next();
+                return results.getString(0);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return "";
     }
 
     /**
