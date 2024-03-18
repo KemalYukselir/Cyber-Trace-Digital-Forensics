@@ -9,28 +9,72 @@
         body {
             font-family: "Courier New", monospace;
             background-image: radial-gradient(
-                hsla(263, 88%, 10%, 0.838), black 300%
-            );
-            height: 100%; overflow: hidden;
-            /* background-image: url('img/cyberTraceBackground.jpg');
-            background-size: cover; */
+                hsla(263, 88%, 10%, 0.838), black 300%);
+            height: 100%; 
+            overflow: hidden;
             color: white;
             text-shadow: 0 0 2px #C8C8C8;
             
         }
 
+        .clock {
+            position: absolute;
+            top: 300px;
+            right: 40px;
+            width: 150px;
+            height: 150px;
+            border: 5px solid black;
+            border-radius: 50%;
+        }
+
+        .second {
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background-color: #333;
+            top: 50%;
+            transform-origin: 100%;
+            transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+        .second {
+            background-color: red;
+            height: 2px;
+            z-index: 2;
+        }
+
+        .countdown {
+            position: relative;
+            font-size: 24px;
+            margin-top: 170px;
+            margin-left: 40px;
+        }
+
         #scoreDisplay {
             position: absolute;
-            top: 2%;
-            right: 2%;
+            top: 20%;
+            right: 3%;
             font-size: 30px;
         } 
+
+        #multiplierDisplay {
+            position: absolute;
+            top: 65%;
+            right: 2%;
+            font-size: 25px;
+        }
+
+        #multiplierValue {
+            position: relative;
+            text-align: center;
+            margin-top: 10px;
+        }
         
         .container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin-right: 100px;
         }
         .dashboard {
             background-color: rgb(78, 68, 86);
@@ -204,9 +248,21 @@
     </style>
 </head>
 <body>
+    <div class="clock">
+        <div class="second"></div>
+        <div class="countdown" id="countdown">05:00</div>
+    </div>
+    
+
+    <audio id="menuAudio" src="/img/audio/AETHER - Density & Time.mp3"></audio>
     <div id="scoreDisplay">
         Score: 0 <!-- Initial score display -->
     </div>
+    <div id="multiplierDisplay">
+        Multiplier: 
+            <div id = "multiplierValue">5x</div> <!-- Initial score display -->
+    </div>
+
     <div class="container">
         <div class="dashboard">
 
@@ -216,7 +272,6 @@
                     <li id = "transactionButton"><button onclick="handleButtonClick('Transaction History')"></button></li>
                     <li id = "messagesButton"><button onclick="handleButtonClick('Messages Exchanged')"></button></li>
                     <li id = "RecordsButton"><button onclick="handleButtonClick('Records')"></button></li>
-
                 </ul>
             </div>
 
@@ -294,45 +349,99 @@
         <button onclick="location.href='/mainMenu'">Back</button>
     </div>
     <script>
-        var score = 0;
-        function handleButtonClick(buttonText) {
-            document.getElementById('textsTable').style.display = "none";
-            document.getElementById('emailsTable').style.display = "none";
-            document.getElementById('paymentsTable').style.display = "none";
-            document.getElementById('recordsTable').style.display = "none";
-            var overviewText = document.getElementById('overviewText');
-            switch (buttonText) {
-                case 'Emails':
-                    overviewText.textContent = "";
-                    document.getElementById('emailsTable').style.display = "table";
-                    dashboardTitle.textContent = "Emails";
-                    break;
-                case 'Transaction History':
-                    overviewText.textContent = "";
-                    document.getElementById('paymentsTable').style.display = "table";
-                    dashboardTitle.textContent = "Transaction History";
-                    break;
-                case 'Messages Exchanged':
-                    overviewText.textContent = "";
-                    document.getElementById('textsTable').style.display = "table";
-                    dashboardTitle.textContent = "Messages Exchanged";
-                    break;
-                case 'Records':
-                    overviewText.textContent = "";
-                    document.getElementById('recordsTable').style.display = "table";
-                    dashboardTitle.textContent = "Records";
-                    break;
+var interval; // Declare the interval variable outside of any function so it can be accessed globally
+var score = 0;
 
-                case 'Escalate':
-                    score += 1;
-                    document.getElementById('scoreDisplay').textContent = "Score: " + score;
-                    break;
-                case 'Not Suspicious':
-                    score -= 1;
-                    document.getElementById('scoreDisplay').textContent = "Score: " + score;
-            }
+function resetClock() {
+    clearInterval(interval); // Clear the existing interval
+    var timeLeft = 300000; // Reset the time left to 5 minutes
+    interval = setInterval(() => {
+        updateClock(timeLeft);
+        timeLeft -= 1000;
+        if (timeLeft < 60000){
+            document.getElementById('multiplierValue').textContent = "1x";
+        } else if (timeLeft < 120000){
+            document.getElementById('multiplierValue').textContent = "2x";
+        } else if (timeLeft < 180000){
+            document.getElementById('multiplierValue').textContent = "3x";
+        } else if (timeLeft < 240000) {
+            document.getElementById('multiplierValue').textContent = "4x";
+        } else if (timeLeft < 300000) {
+            document.getElementById('multiplierValue').textContent = "5x";
         }
-        
+
+        if (timeLeft < 0) {
+            clearInterval(interval); // Clear the interval when time is up
+         }
+    }, 1000); // Set a new interval with the initial time
+}
+
+
+    window.onload = function() {
+        audio = document.getElementById("menuAudio")
+        audio.play();
+        audio.volume = 0.1;
+        resetClock(); // Call resetClock function when the window loads to start the clock
+    }
+
+    function handleButtonClick(buttonText) {
+        document.getElementById('textsTable').style.display = "none";
+        document.getElementById('emailsTable').style.display = "none";
+        document.getElementById('paymentsTable').style.display = "none";
+        document.getElementById('recordsTable').style.display = "none";
+        var overviewText = document.getElementById('overviewText');
+        switch (buttonText) {
+            case 'Emails':
+                overviewText.textContent = "";
+                document.getElementById('emailsTable').style.display = "table";
+                dashboardTitle.textContent = "Emails";
+                break;
+            case 'Transaction History':
+                overviewText.textContent = "";
+                document.getElementById('paymentsTable').style.display = "table";
+                dashboardTitle.textContent = "Transaction History";
+                break;
+            case 'Messages Exchanged':
+                overviewText.textContent = "";
+                document.getElementById('textsTable').style.display = "table";
+                dashboardTitle.textContent = "Messages Exchanged";
+                break;
+            case 'Records':
+                overviewText.textContent = "";
+                document.getElementById('recordsTable').style.display = "table";
+                dashboardTitle.textContent = "Records";
+                break;
+            case 'Escalate':
+                multiplierValue = document.getElementById('multiplierValue').textContent.replace("x","")
+                multiplierValue = Number(multiplierValue)
+                score += 1 * multiplierValue;
+                document.getElementById('scoreDisplay').textContent = "Score: " + score;
+                resetClock()
+                break;
+            case 'Not Suspicious':
+                multiplierValue = document.getElementById('multiplierValue').textContent.replace("x","")
+                multiplierValue = Number(multiplierValue)
+                score -= 1 * multiplierValue;
+                document.getElementById('scoreDisplay').textContent = "Score: " + score;
+                resetClock()
+                break;
+        }
+    }
+
+    function updateClock(timeLeft) {
+        const totalTime = 300000; // 5 minutes in milliseconds
+        const fraction = timeLeft / totalTime;
+        const secondHand = document.querySelector('.second');
+        const secondDeg = 360 * (1 - fraction); // Subtracting from 1 to make it move clockwise
+        secondHand.style.transform = `rotate(${secondDeg + 90}deg)`; // Offset by 90 degrees to start at 12 o'clock
+
+        // Update digital countdown
+        const countdownElement = document.getElementById('countdown');
+        const minutes = Math.floor(timeLeft / 60000);
+        const seconds = Math.floor((timeLeft % 60000) / 1000);
+        countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
     </script>
 </body>
 </html>

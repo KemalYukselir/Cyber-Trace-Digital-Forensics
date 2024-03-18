@@ -112,7 +112,7 @@
     </style>
 </head>
 <body>
-    <audio id="menuAudio" loop src="/img/audio/AETHER - Density & Time.mp3" volume="0"></audio>
+    <audio id="menuAudio" src="/img/audio/EBB - Density & Time.mp3"></audio>
     
     <div class="logoHolder">
         <img src="../img/blacklogo.png">
@@ -130,13 +130,12 @@
     <div class="mainMenuButtons">
         <button onclick="location.href=' /dashboard'">Start Game</button>
         <button onclick="location.href = '/leaderboard'">Leaderboard</button>
-        <button onclick="location.href = '/tutorial'">Tutorial</button>
+        <button onclick="location.href = '/tutorial'">How to play</button>
         <button onclick="location.href = '/credits'">Credits</button>
     </div>
 
     <!-- Credit button -->
    
-x
     <!-- <div class="audioHolder">
         <img src="../img/audioLogo.jpg">
     </div> -->
@@ -146,6 +145,7 @@ x
         window.onload = function() {
             audio = document.getElementById("menuAudio")
             audio.play();
+            audio.currentTime += 20; 
             audio.volume = 0.2;
         }
     </script>
