@@ -46,7 +46,6 @@ public class DatabaseService {
      * @return Query Success/failure
      */
     public boolean logInUser(String username) {
-
         // SQL queries to delete users in table and insert new user into the users table
         var query = "TRUNCATE TABLE LoggedInUser";
         runUpdateQuery(query, new ArrayList<>());
@@ -133,6 +132,27 @@ public class DatabaseService {
     }
 
     /**
+     * Returns the users and scores in the leaderboard ordered by their score
+     * @return List of leaderboard jsons
+     */
+    public List<LeaderboardJson> getLeaderboardData() {
+        var query = "SELECT * FROM Users ORDER BY score DESC";
+
+        try (ResultSet results = runSelectQuery(query)) {
+            var users = new ArrayList<LeaderboardJson>();
+            while (results.next()) {
+                users.add(new LeaderboardJson(results.getString(1), results.getInt(2)));
+            }
+            return users;
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return new ArrayList<>();
+    }
+
+    /**
      * Helper method for creating a list of objects from a table, for a given scenario
      * @param scenarioId Scenario data is related to
      * @param table Name of the table to query
@@ -158,6 +178,15 @@ public class DatabaseService {
         }
 
         return returnList;
+    }
+
+    /**
+     * A general select query method with no parameters
+     * @param query      SQL select query
+     * @return Result of the select
+     */
+    private ResultSet runSelectQuery(String query) {
+        return runSelectQuery(query, new ArrayList<>());
     }
 
     /**
