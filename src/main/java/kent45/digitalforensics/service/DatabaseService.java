@@ -66,16 +66,7 @@ public class DatabaseService {
     public String getLoggedInUser() {
         var query = "SELECT user FROM LoggedInUser";
 
-        try (ResultSet results = runSelectQuery(query, new ArrayList<>())) {
-            if (results != null) {
-                results.next();
-                return results.getString(0);
-            }
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-
-        return "";
+        return getStringFromQuery(query, new ArrayList<>());
     }
 
     /**
@@ -138,7 +129,7 @@ public class DatabaseService {
      * @return List of leaderboard jsons
      */
     public List<LeaderboardJson> getLeaderboardData() {
-        var query = "SELECT * FROM Users ORDER BY score DESC";
+        var query = "SELECT username, high_score FROM Users ORDER BY high_score DESC";
 
         try (ResultSet results = runSelectQuery(query)) {
             var users = new ArrayList<LeaderboardJson>();
@@ -152,6 +143,73 @@ public class DatabaseService {
         }
 
         return new ArrayList<>();
+    }
+
+    /**
+     * Returns the users current score
+     * @param username username
+     * @return current score
+     */
+    public int getUsersCurrentScore(String username) {
+        var query = "SELECT current_score FROM Users WHERE username=?";
+
+        // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
+        var parameters = new ArrayList<>();
+        parameters.add(username);
+
+        return getIntFromQuery(query, parameters);
+    }
+
+    /**
+     * Private helper method to return the users current score
+     * @param username username
+     * @return high score
+     */
+    private int getUsersHighScore(String username) {
+        var query = "SELECT high_score FROM Users WHERE username=?";
+
+        // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
+        var parameters = new ArrayList<>();
+        parameters.add(username);
+
+        return getIntFromQuery(query, parameters);
+    }
+
+    /**
+     * Updates the users current score
+     * @param username username
+     * @param score current score
+     * @return If the update was successful
+     */
+    public boolean updateUsersScore(String username, int score) {
+        var query = "UPDATE Users SET current_score=? WHERE username=?";
+
+        // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
+        var parameters = new ArrayList<>();
+        parameters.add(score);
+        parameters.add(username);
+
+        return runUpdateQuery(query, parameters) == 1;
+    }
+
+    /**
+     * Sets the users high score if the new score is higher
+     * @param username username
+     * @param score new score
+     * @return If the update was successful
+     */
+    public boolean setUsersHighScore(String username, int score) {
+        if (getUsersHighScore(username) < score) {
+            var query = "UPDATE Users SET high_score=? WHERE username=?";
+
+            // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
+            var parameters = new ArrayList<>();
+            parameters.add(score);
+            parameters.add(username);
+
+            return runUpdateQuery(query, parameters) == 1;
+        }
+        return true;
     }
 
     /**
@@ -180,6 +238,32 @@ public class DatabaseService {
         }
 
         return returnList;
+    }
+
+    private int getIntFromQuery(String query, ArrayList<Object> parameters) {
+        try (ResultSet results = runSelectQuery(query, parameters)) {
+            if (results != null) {
+                results.next();
+                return results.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return 0;
+    }
+
+    private String getStringFromQuery(String query, ArrayList<Object> parameters) {
+        try (ResultSet results = runSelectQuery(query, parameters)) {
+            if (results != null) {
+                results.next();
+                return results.getString(1);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return "";
     }
 
     /**
