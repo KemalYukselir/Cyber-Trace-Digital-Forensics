@@ -34,6 +34,10 @@
 
             <p th:if="${judgement} == 'innocent' and !${isGuilty}">You correctly identified the person was innocent</p>
             <p th:if="${judgement} == 'innocent' and ${isGuilty}">You incorrectly identified the person as innocent, they were guilty</p>
+
+            <form action="/dashboard" method="get">
+                <button type="submit" class="buttons">Next Scenario</button>
+            </form>
         </div>
     </div>
 </body>

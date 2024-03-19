@@ -79,21 +79,23 @@ public class DatabaseService {
     }
 
     /**
-     * Picks a random scenario from the scenarios table
-     * @return Scenario ID
+     * Returns all available scenario IDs in a random order
+     * @return An Arraylist of Scenario IDs
      */
-    public int randomScenario() {
-        var query = "SELECT scenarioId FROM Scenarios ORDER BY RAND() LIMIT 1";
+    public ArrayList<Integer> scenarioQueue() {
+        var returnList = new ArrayList<Integer>();
+        var query = "SELECT scenarioId FROM Scenarios ORDER BY RAND()";
 
         try (ResultSet results = runSelectQuery(query, new ArrayList<>())) {
             if (results != null) {
-                results.next();
-                return results.getInt(1);
+                while (results.next()) {
+                    returnList.add(results.getInt(1));
+                }
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-        return 0;
+        return returnList;
     }
 
     /**

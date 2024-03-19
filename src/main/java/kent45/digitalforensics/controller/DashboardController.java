@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 @Controller
@@ -17,6 +18,8 @@ public class DashboardController {
 
     private final DatabaseService databaseService;
 
+    private ArrayList<Integer> scenarioQueue = new ArrayList<>();
+
     @Autowired
     public DashboardController(DatabaseService databaseService) {
         this.databaseService = databaseService;
@@ -24,7 +27,10 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public ModelAndView getDashboard() {
-        ScenarioJson scenarioJson = databaseService.getScenario(databaseService.randomScenario());
+        if (scenarioQueue.size() == 0) {
+            scenarioQueue = databaseService.scenarioQueue();
+        }
+        ScenarioJson scenarioJson = databaseService.getScenario(scenarioQueue.remove(0));
 
         return new ModelAndView("dashboard")
                 .addObject("scenario", scenarioJson);
