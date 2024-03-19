@@ -19,6 +19,7 @@ public class DashboardController {
     private final DatabaseService databaseService;
 
     private ArrayList<Integer> scenarioQueue = new ArrayList<>();
+    private ScenarioJson currentScenario;
 
     @Autowired
     public DashboardController(DatabaseService databaseService) {
@@ -30,10 +31,10 @@ public class DashboardController {
         if (scenarioQueue.size() == 0) {
             scenarioQueue = databaseService.scenarioQueue();
         }
-        ScenarioJson scenarioJson = databaseService.getScenario(scenarioQueue.remove(0));
+        currentScenario = databaseService.getScenario(scenarioQueue.remove(0));
 
         return new ModelAndView("dashboard")
-                .addObject("scenario", scenarioJson);
+                .addObject("scenario", currentScenario);
     }
 
     @GetMapping("/judgement")
@@ -43,19 +44,15 @@ public class DashboardController {
 
     @PostMapping("/judgement/guilty")
     public ModelAndView judgement_guilty() {
-        ScenarioJson scenarioJson = databaseService.getScenario(TEST_SCENARIO);
-
         return new ModelAndView("judgementScenario")
                 .addObject("judgement", "guilty")
-                .addObject("isGuilty", scenarioJson.isGuilty());
+                .addObject("isGuilty", currentScenario.isGuilty());
     }
 
     @PostMapping("/judgement/innocent")
     public ModelAndView judgement_innocent() {
-        ScenarioJson scenarioJson = databaseService.getScenario(TEST_SCENARIO);
-
         return new ModelAndView("judgementScenario")
                 .addObject("judgement", "innocent")
-                .addObject("isGuilty", scenarioJson.isGuilty());
+                .addObject("isGuilty", currentScenario.isGuilty());
     }
 }
