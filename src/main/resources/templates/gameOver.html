@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Over</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: black;
+            height: 100%;
+            overflow: hidden
+        }
+
+        header {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .titleSection {
+            background-color: black;
+            position: absolute;
+            top: 35%; /* Adjust this value as needed */
+            left: 7%;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif; /* Futuristic font */
+            font-size: 60px;
+            color: white;
+        }
+
+
+        .titleSection::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            width: 200px;
+            height: 5px;
+            background-color: #00ff00; /* Green line */
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px #00ff00; /* Glow effect */
+        }
+
+
+        .titleSection::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            width: 200px;
+            height: 5px;
+            background-color: #ff0000; /* Red line */
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px #ff0000; /* Glow effect */
+        }
+
+        #sloganDesc {
+            font-size: 25px;
+            color: white;
+        }
+
+        .gameOver-container {
+            text-align: center;
+            margin-top: 300px;
+            padding: 20px;
+            animation: creditsScroll 15s linear infinite;
+        }
+
+        .text {
+            font-family: 'Orbitron', sans-serif; /* Futuristic font */
+            margin-bottom: 10px;
+            padding: 20px;
+            color: white;
+        }
+
+        .text strong {
+            font-family: 'Orbitron', sans-serif;
+            color: #0ac050;
+        }
+
+        .mainMenu-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .mainMenu-button button {
+            padding: 10px 20px;
+            background-color: #15ee56;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .mainMenu-button button:hover {
+            background-color: #00cc9a;
+        }
+    </style>
+</head>
+<body>
+<div class="titleSection">
+    <div id="gameTitle">
+        <b>CyberTrace</b>
+    </div>
+    <div id="sloganDesc">
+        <b>A Digital Forensics Experience</b>
+    </div>
+</div>
+
+<main class="gameOver-container">
+    <div class="text">
+        <strong>You have completed all the suspicious cases for the day.<br>
+            Log back in tomorrow as there will always be more cases to view.</strong>
+    </div>
+    <br>
+    <div class="text">
+        You can restart the game to go back through the scenarios.</br>
+        More scenarios are planned for the future.
+    </div>
+</main>
+
+<footer class="mainMenu-button">
+    <button onclick="location.href='/mainMenu'">Main Menu</button>
+</footer>
+</body>
+</html>

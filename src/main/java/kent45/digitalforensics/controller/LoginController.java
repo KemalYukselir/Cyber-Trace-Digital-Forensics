@@ -26,6 +26,7 @@ public class LoginController {
 
         databaseService.addUser(username);
         databaseService.logInUser(username);
+        databaseService.updateUsersCurrentScore(username, 0);
         return new ModelAndView("redirect:/mainMenu");
     }
 }
