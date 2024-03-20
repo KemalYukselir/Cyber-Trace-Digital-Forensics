@@ -181,7 +181,7 @@ public class DatabaseService {
      * @param score current score
      * @return If the update was successful
      */
-    public boolean updateUsersScore(String username, int score) {
+    public boolean updateUsersCurrentScore(String username, int score) {
         var query = "UPDATE Users SET current_score=? WHERE username=?";
 
         // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
