@@ -53,7 +53,7 @@ public class DashboardController {
         return new ModelAndView("judgementScenario")
                 .addObject("judgement", "guilty")
                 .addObject("isGuilty", currentScenario.isGuilty())
-                .addObject("userScore", databaseService.updateUsersScore(databaseService.getLoggedInUser(), newScore));
+                .addObject("userScore", databaseService.updateUsersCurrentScore(databaseService.getLoggedInUser(), newScore));
     }
     
     @PostMapping("/judgement/innocent")
@@ -63,7 +63,7 @@ public class DashboardController {
         return new ModelAndView("judgementScenario")
                 .addObject("judgement", "innocent")
                 .addObject("isGuilty", currentScenario.isGuilty())
-                .addObject("userScore", databaseService.updateUsersScore(databaseService.getLoggedInUser(), newScore));
+                .addObject("userScore", databaseService.updateUsersCurrentScore(databaseService.getLoggedInUser(), newScore));
     }
 
 
