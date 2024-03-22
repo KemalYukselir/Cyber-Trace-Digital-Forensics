@@ -90,6 +90,15 @@
             font-size: 25px;
             color: white;
         }
+
+        .loginContainer {
+            position: absolute;
+            top: 400px;
+            left: 450px;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -102,12 +111,11 @@
         </div>
     </div>
 
-<div class="mainMenuButtons">
-    <form action="/login" method="post">
-        <input id="username" name="username" placeholder="Username" required type="text" th:value="${username}"/>
-        <button type="submit">Login</button>
-    </form>
-</div>
-
+    <div class="loginContainer">
+        <form action="/login" method="post">
+            <input id="username" name="username" placeholder="Username" required type="text" th:value="${username}"/>
+            <button type="submit">Login</button>
+        </form>
+    </div>
 </body>
 </html>
