@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -38,32 +40,31 @@ public class DashboardController {
                 .addObject("scenario", currentScenario)
                 // .addObject("loggedInUser", databaseService.getLoggedInUser())
                 .addObject("getUsersCurrentScore", databaseService.getUsersCurrentScore(databaseService.getLoggedInUser()));
-            }
-
-    @GetMapping("/judgement")
-    public ModelAndView getJudgementScreen() {
-        return new ModelAndView("judgement");
     }
 
-
     @PostMapping("/judgement/guilty")
-    public ModelAndView judgement_guilty(@RequestParam("userMultiplier") int userMultiplier) {
+    public String judgement_guilty(@RequestParam("userMultiplier") int userMultiplier,
+                                   RedirectAttributes redirectAttributes) {
         var userScore = databaseService.getUsersCurrentScore(databaseService.getLoggedInUser());
-        var newScore = currentScenario.isGuilty() ? userScore + (1 * userMultiplier) : userScore - (1 * userMultiplier);
-        return new ModelAndView("judgementScenario")
-                .addObject("judgement", "guilty")
-                .addObject("isGuilty", currentScenario.isGuilty())
-                .addObject("userScore", databaseService.updateUsersScore(databaseService.getLoggedInUser(), newScore));
+        var newScore = currentScenario.isGuilty() ? userScore + (userMultiplier) : userScore - (userMultiplier);
+
+        redirectAttributes.addFlashAttribute("judgement", "guilty");
+        redirectAttributes.addFlashAttribute("isGuilty", currentScenario.isGuilty());
+        redirectAttributes.addFlashAttribute("userScore", databaseService.updateUsersCurrentScore(databaseService.getLoggedInUser(), newScore));
+
+        return "redirect:/dashboard";
     }
     
     @PostMapping("/judgement/innocent")
-    public ModelAndView judgement_innocent(@RequestParam("userMultiplier") int userMultiplier) {
+    public String judgement_innocent(@RequestParam("userMultiplier") int userMultiplier,
+                                           RedirectAttributes redirectAttributes) {
         var userScore = databaseService.getUsersCurrentScore(databaseService.getLoggedInUser());
-        var newScore = !currentScenario.isGuilty() ? userScore + (1 * userMultiplier) : userScore - (1 * userMultiplier);
-        return new ModelAndView("judgementScenario")
-                .addObject("judgement", "innocent")
-                .addObject("isGuilty", currentScenario.isGuilty())
-                .addObject("userScore", databaseService.updateUsersScore(databaseService.getLoggedInUser(), newScore));
+        var newScore = !currentScenario.isGuilty() ? userScore + (userMultiplier) : userScore - (userMultiplier);
+        redirectAttributes.addFlashAttribute("judgement", "innocent");
+        redirectAttributes.addFlashAttribute("isGuilty", currentScenario.isGuilty());
+        redirectAttributes.addFlashAttribute("userScore", databaseService.updateUsersCurrentScore(databaseService.getLoggedInUser(), newScore));
+
+        return "redirect:/dashboard";
     }
 
 
