@@ -368,13 +368,13 @@
                     <li id= "esculateButton">
                         <form action="/judgement/guilty" method="post">
                             <button type="submit" onclick="handleButtonClick('Escalate')"><b>Escalate</b></button>
-                            <input id = "userMultiplierEsculate" type="hidden" name="userMultiplier" th:value="${multiplierUserValue}">
+                            <input id = "userMultiplierEscalate" type="hidden" name="userMultiplier">
                         </form>
                     </li>
                     <li id= "notSuspiciousButton">
                         <form action="/judgement/innocent" method="post">
                             <button onclick="handleButtonClick('Not Suspicious')"><b>Not Suspicious</b></button>
-                            <input id = "userMultipliernotSuspicious" type="hidden" name="userMultiplier" th:value="${multiplierUserValue}">
+                            <input id = "userMultiplierNotSuspicious" type="hidden" name="userMultiplier">
                         </form>
                     </li>
                 </div>
@@ -390,12 +390,11 @@
     </div>
     <script>
 var interval; // Declare the interval variable outside of any function so it can be accessed globally
-var score = 0;
 
 
 function setMultiplierValue(multiplierValue) {
-    document.getElementById("userMultiplierEsculate").value = multiplierValue;
-    document.getElementById("userMultipliernotSuspicious").value = multiplierValue;
+    document.getElementById("userMultiplierEscalate").value = multiplierValue;
+    document.getElementById("userMultiplierNotSuspicious").value = multiplierValue;
 }
 
 function resetClock() {
@@ -407,23 +406,18 @@ function resetClock() {
         if (timeLeft < 60000){
             document.getElementById('multiplierValue').textContent = "1x";
             setMultiplierValue(1)
-            
         } else if (timeLeft < 120000){
             document.getElementById('multiplierValue').textContent = "2x";
             setMultiplierValue(2)
-
         } else if (timeLeft < 180000){
             document.getElementById('multiplierValue').textContent = "3x";
             setMultiplierValue(3)
-
         } else if (timeLeft < 240000) {
             document.getElementById('multiplierValue').textContent = "4x";
             setMultiplierValue(4)
-
         } else if (timeLeft < 300000) {
             document.getElementById('multiplierValue').textContent = "5x";
             setMultiplierValue(5)
-
         }
 
         if (timeLeft < 0) {

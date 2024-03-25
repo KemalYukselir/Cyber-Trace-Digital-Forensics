@@ -84,17 +84,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Player 1</td>
-                <td>5000</td>
+            <tr th:each="highScore : ${highScores}">
+                <td><b><span th:text="${highScore.rank}"/></b></td>
+                <td><span th:text="${highScore.username}"/></td>
+                <td><span th:text="${highScore.highScore}"/></td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>Player 2</td>
-                <td>4500</td>
-            </tr>
-            <!-- Add more rows as needed -->
         </tbody>
     </table>
 </div>
