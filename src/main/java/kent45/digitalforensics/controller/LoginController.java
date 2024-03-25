@@ -11,8 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
+    private final DatabaseService databaseService;
+
     @Autowired
-    private DatabaseService databaseService;
+    public LoginController(DatabaseService databaseService) {
+        this.databaseService = databaseService;
+    }
 
 
     @GetMapping("/login")
@@ -26,7 +30,7 @@ public class LoginController {
 
         databaseService.addUser(username);
         databaseService.logInUser(username);
-        databaseService.updateUsersCurrentScore(username, 0);
+        databaseService.updateUsersCurrentScore(0);
         return new ModelAndView("redirect:/mainMenu");
     }
 }
