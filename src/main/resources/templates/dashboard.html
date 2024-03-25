@@ -336,6 +336,8 @@
                 <div class="user-info">
                     <p>Name: <span th:text="${scenario.subject}"/></p>
                     <p>Overview: <span th:text="${scenario.overview}"/></p>
+                    <p th:if="${judgement}">Judgment: <span th:text="${judgement}"/></p>
+                    <p th:if="${isGuilty}">IsGuilty: <span th:text="${isGuilty}"/></p>
                 </div>
                 <ul>
                     <li id= "esculateButton">
