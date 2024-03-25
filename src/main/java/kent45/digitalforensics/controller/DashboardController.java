@@ -46,7 +46,7 @@ public class DashboardController {
     public String judgement_guilty(@RequestParam("userMultiplier") int userMultiplier,
                                    RedirectAttributes redirectAttributes) {
         var userScore = databaseService.getUsersCurrentScore(databaseService.getLoggedInUser());
-        var newScore = currentScenario.isGuilty() ? userScore + (userMultiplier) : userScore - (userMultiplier);
+        var newScore = currentScenario.isGuilty() ? userScore + (userMultiplier * currentScenario.difficulty()) : userScore - (userMultiplier);
 
         redirectAttributes.addFlashAttribute("judgement", "guilty");
         redirectAttributes.addFlashAttribute("isGuilty", currentScenario.isGuilty());
@@ -59,14 +59,12 @@ public class DashboardController {
     public String judgement_innocent(@RequestParam("userMultiplier") int userMultiplier,
                                            RedirectAttributes redirectAttributes) {
         var userScore = databaseService.getUsersCurrentScore(databaseService.getLoggedInUser());
-        var newScore = !currentScenario.isGuilty() ? userScore + (userMultiplier) : userScore - (userMultiplier);
+        var newScore = !currentScenario.isGuilty() ? userScore + (userMultiplier * currentScenario.difficulty()) : userScore - (userMultiplier);
+
         redirectAttributes.addFlashAttribute("judgement", "innocent");
         redirectAttributes.addFlashAttribute("isGuilty", currentScenario.isGuilty());
         redirectAttributes.addFlashAttribute("userScore", databaseService.updateUsersCurrentScore(databaseService.getLoggedInUser(), newScore));
 
         return "redirect:/dashboard";
     }
-
-
-
 }
