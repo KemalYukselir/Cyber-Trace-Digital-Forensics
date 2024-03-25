@@ -252,9 +252,17 @@
         <div class="second"></div>
         <div class="countdown" id="countdown">05:00</div>
     </div>
-
-
     <audio id="menuAudio" src="/img/audio/AETHER - Density & Time.mp3"></audio>
+
+    <div id = "loggedInUserDisplay">
+        Logged in: 
+    </div>
+
+    <div id = "scenarioDifficulty">
+        Difficulty: 
+    </div>
+ 
+
     <div id="scoreDisplay">
         Score:  <p th:text="${getUsersCurrentScore}"></p> 
     </div>
@@ -262,6 +270,7 @@
         Multiplier:
             <div id = "multiplierValue">5x</div> <!-- Initial score display -->
     </div>
+
 
     <div class="container">
         <div class="dashboard">
@@ -329,10 +338,7 @@
             </div>
 
             <div class="judgement-container">
-
-                <div class="user-photo">
-
-                </div>
+                <div class="user-photo"></div>
                 <div class="user-info">
                     <p>Name: <span th:text="${scenario.subject}"/></p>
                     <p>Overview: <span th:text="${scenario.overview}"/></p>
@@ -352,8 +358,6 @@
                     </li>
                 </ul>
             </div>
-
-            
         </div>
     </div>
     <div class="back-button">
