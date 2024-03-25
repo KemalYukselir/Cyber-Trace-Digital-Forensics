@@ -6,21 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scenario Dashboard</title>
     <style>
+        html {
+            zoom: 90%;
+
+        }
         body {
             font-family: "Courier New", monospace;
-            background-image: radial-gradient(
-                hsla(263, 88%, 10%, 0.838), black 300%);
+            /* background-image: radial-gradient(
+                hsla(263, 88%, 10%, 0.838), black 300%); */
+            background-image: url('/img/scenariodashboardBackground.jpeg');
+            background-size: cover;
             height: 100%;
             overflow: hidden;
             color: white;
             text-shadow: 0 0 2px #C8C8C8;
+
             
         }
 
-        .clock {
-            position: absolute;
-            top: 300px;
-            right: 40px;
+        .clockTimer {
+            position: relative;
+            margin-top: 20px;
+            margin-right: 60px;
+            justify-content: center;
             width: 150px;
             height: 150px;
             border: 5px solid black;
@@ -44,22 +52,25 @@
 
         .countdown {
             position: relative;
+            text-align: center;
             font-size: 24px;
             margin-top: 170px;
-            margin-left: 40px;
         }
 
         #scoreDisplay {
-            position: absolute;
-            top: 20%;
-            right: 3%;
-            font-size: 30px;
+            margin-top: 30px;
+            display: inline-block;
+            margin-right: 100px;
+            position: relative;
+            font-size: 20px;
+        }
+
+        #scoreDisplay p{
+            display: inline-block;
         }
 
         #multiplierDisplay {
-            position: absolute;
-            top: 65%;
-            right: 2%;
+            position: relative;
             font-size: 25px;
         }
 
@@ -94,6 +105,11 @@
             list-style-type: none; 
             padding: 0;
             margin: 0;            
+        }
+        .judgementButtons {
+            margin-left: 20px;
+            width: 300px;
+            height: 150px;
         }
         .options li {
             margin: 75px 10px;
@@ -148,7 +164,7 @@
             background-image: url('img/notepadLogo.png');
             background-repeat: no-repeat;
             background-position: center; /* Center the logo inside the button */
-            background-size: 90%; /* Adjust the size of the logo as needed */  
+            background-size: 100%; /* Adjust the size of the logo as needed */  
         }
 
         .user-info p {
@@ -159,12 +175,14 @@
         }
 
         #esculateButton button {
+            margin-top: 30px;
             color: white;
             background-color: rgb(199, 43, 43);
             border-radius: 10px;
         }
 
         #notSuspiciousButton button{
+            margin-top: -20px;
             background-color: rgb(233, 233, 204);
             border-radius: 10px;
         }
@@ -248,31 +266,19 @@
     </style>
 </head>
 <body>
-    <div class="clock">
-        <div class="second"></div>
-        <div class="countdown" id="countdown">05:00</div>
-    </div>
     <audio id="menuAudio" src="/img/audio/AETHER - Density & Time.mp3"></audio>
 
-    <div id = "loggedInUserDisplay">
+    <!-- <div id = "loggedInUserDisplay">
         Logged in: 
     </div>
 
     <div id = "scenarioDifficulty">
         Difficulty: 
-    </div>
+    </div> -->
  
 
-    <div id="scoreDisplay">
-        Score:  <p th:text="${getUsersCurrentScore}"></p> 
-    </div>
-    <div id="multiplierDisplay">
-        Multiplier:
-            <div id = "multiplierValue">5x</div> <!-- Initial score display -->
-    </div>
-
-
     <div class="container">
+
         <div class="dashboard">
 
             <div class="options">
@@ -338,12 +344,18 @@
             </div>
 
             <div class="judgement-container">
-                <div class="user-photo"></div>
+                <!-- <div class="user-photo"></div> -->
                 <div class="user-info">
                     <p>Name: <span th:text="${scenario.subject}"/></p>
                     <p>Overview: <span th:text="${scenario.overview}"/></p>
                 </div>
-                <ul>
+                <div class="clockTimer">
+                    <div class="second"></div>
+                    <div class="countdown" id="countdown">05:00</div>
+                </div>
+
+
+                <div class="judgementButtons">
                     <li id= "esculateButton">
                         <form action="/judgement/guilty" method="post">
                             <button type="submit" onclick="handleButtonClick('Escalate')"><b>Escalate</b></button>
@@ -356,7 +368,11 @@
                             <input id = "userMultipliernotSuspicious" type="hidden" name="userMultiplier" th:value="${multiplierUserValue}">
                         </form>
                     </li>
-                </ul>
+                </div>
+
+                <div id="scoreDisplay">
+                    Score:  <p th:text="${getUsersCurrentScore}"></p> 
+                </div>
             </div>
         </div>
     </div>
