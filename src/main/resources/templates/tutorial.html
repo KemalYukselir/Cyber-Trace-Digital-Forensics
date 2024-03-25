@@ -9,28 +9,30 @@
         /* Global Styles */
         
         body {
-            background-image: url('/img/detectivesOfficeCrimeScene.jpg');
+            background-image: url('src/main/resources/static/img/detectivesOfficeCrimeScene.jpg');
             background-size: cover;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            color: #fff; /* Set text color to white for better contrast */
         }
 
         /* Container Styles */
         .tutorial-container {
-            max-width: 1100px;
-            margin: 100px auto 20px; /* Added margin-top: 100px */
-            background-color: rgba(255, 255, 255, 0.8); /* Changed background color with opacity for better readability */
+            max-width: 800px; /* Adjusted max-width for better readability */
+            margin: 80px auto; /* Increased margin for better centering */
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Increased shadow for better contrast */
+            border-radius: 10px; /* Increased border-radius for softer edges */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Enhanced shadow for depth */
         }
 
         /* Heading Styles */
         h2 {
-            color: #333;
             text-align: center;
+            font-size: 36px;
+            margin-bottom: 30px; /* Increased margin for spacing */
         }
 
         /* Step Styles */
@@ -39,12 +41,14 @@
         }
 
         h3 {
-            color: black;
+            color: #c2a6ff; /* Set heading color to gold */
+            font-size: 24px;
+            margin-bottom: 10px; /* Increased margin for spacing */
         }
 
         p {
             line-height: 1.6;
-            color: #777;
+            color: #ccc; /* Set paragraph color to light gray */
         }
 
         /* Back Button Styles */
@@ -54,8 +58,8 @@
         }
 
         .back-button button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
+            padding: 12px 24px; /* Adjusted padding for better button size */
+            background-color: #8061af;
             color: white;
             border: none;
             border-radius: 5px;
@@ -65,43 +69,42 @@
         }
 
         .back-button button:hover {
-            background-color: #45a049;
+            background-color: #52407b;
+        }
+
+        /* Responsive Styles */
+        @media only screen and (max-width: 600px) {
+            .tutorial-container {
+                padding: 20px; /* Adjusted padding for smaller screens */
+                border-radius: 0; /* Removed border-radius for smaller screens */
+                background-color: rgba(0, 0, 0, 0.8); /* Increased opacity for smaller screens */
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="tutorial-container">
-        <h2>Welcome to the Tutorial</h2>
+        <h2>How to Play</h2>
 
         <div class="tutorial-step">
-            <h3>User Scenarios</h3>
-            <p>
-                In this game, you'll encounter different user scenarios, ranging from planned crimes to friendly jokes. Take your time to go through them carefully.
-                <!-- In this tutorial, you'll face various user scenarios where you'll make decisions. Your performance will be scored and displayed on the leaderboard. Get ready to investigate! -->
-            </p>
+            <h3>Scenarios</h3>
+            <p>Throughout the game, you will encounter a variety of scenarios, ranging from planned crimes to harmless pranks. Take your time to assess each scenario carefully, reviewing all available information before making a judgment. You will have 5 minutes to consider each scenario, so make sure to use your time wisely!</p>
         </div>
 
         <div class="tutorial-step">
             <h3>Review Details and Information</h3>
-            <p>
-                Take your time to examine materials like user emails or transactions. Pay attention to any alerts or important information. Missing crucial details could impact your decision
-                and lower your score.
-            </p>
+            <p>Examine all relevant materials, including user emails and transaction records. Pay close attention to any alerts or important details, as overlooking crucial information could negatively impact your decision and result in a lower score.</p>
         </div>
 
         <div class="tutorial-step">
             <h3>Make Your Judgment!</h3>
-            <p>
-                After reviewing the information, it's up to you to decide whether the individual is innocent or requires further consideration. Your decision will affect your score, so choose wisely.
-            </p>
+            <p>After thoroughly reviewing the information, it's up to you to decide whether the individual is innocent or requires further investigation. Your decision will directly impact your score, so choose wisely!</p>
         </div>
 
         <div class="tutorial-step">
             <h3>Scoring</h3>
-            <p>
-                After making your choice, you'll earn points based on correctness and speed. Correct answers and quick responses earn more points. You can also earn bonus points for consecutive correct answers, or lose points for consecutive incorrect ones.
-            </p>
+            <p>Upon making your decision, you will earn points based on accuracy and speed. Correct answers and quick responses will earn you more points. Additionally, you can earn bonus points for consecutive correct answers or lose points for consecutive incorrect ones.</p>
         </div>
     </div>
 
