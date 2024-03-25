@@ -24,6 +24,8 @@ public class DashboardController {
     public DashboardController(DatabaseService databaseService) {
         this.databaseService = databaseService;
         this.scenarioQueue = databaseService.scenarioQueue();
+
+        databaseService.updateUsersCurrentScore(0);
     }
 
     @GetMapping("/dashboard")
@@ -71,6 +73,8 @@ public class DashboardController {
     public ModelAndView gameOver() {
         databaseService.setUsersHighScore();
         scenarioQueue = databaseService.scenarioQueue();
+
+        databaseService.updateUsersCurrentScore(0);
 
         return new ModelAndView("gameOver");
     }
