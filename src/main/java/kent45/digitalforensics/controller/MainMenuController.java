@@ -18,6 +18,8 @@ public class MainMenuController {
 
     @GetMapping("/mainMenu")
     public ModelAndView mainMenu() {
+        databaseService.updateUsersCurrentScore(0);
+
         return new ModelAndView("mainMenu");
     }
 

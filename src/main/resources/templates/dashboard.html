@@ -372,13 +372,13 @@
                     <li id= "esculateButton">
                         <form action="/judgement/guilty" method="post">
                             <button type="submit" onclick="handleButtonClick('Escalate')"><b>Escalate</b></button>
-                            <input id = "userMultiplierEscalate" type="hidden" name="userMultiplier">
+                            <input id = "userMultiplierEscalate" type="hidden" name="userMultiplier" th:value="5">
                         </form>
                     </li>
                     <li id= "notSuspiciousButton">
                         <form action="/judgement/innocent" method="post">
                             <button onclick="handleButtonClick('Not Suspicious')"><b>Not Suspicious</b></button>
-                            <input id = "userMultiplierNotSuspicious" type="hidden" name="userMultiplier">
+                            <input id = "userMultiplierNotSuspicious" type="hidden" name="userMultiplier" th:value="5">
                         </form>
                     </li>
                 </div>
