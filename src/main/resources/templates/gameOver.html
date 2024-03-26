@@ -9,19 +9,19 @@
     <style>
         body {
             background-color: black;
-            height: 100%;
-            overflow: hidden
+            overflow: hidden;
+            margin: 0; /* Reset default margin */
+            padding: 0; /* Reset default padding */
+            height: 100vh; /* Full viewport height */
+            justify-content: center;
+            align-items: center;
         }
 
-        header {
-            text-align: center;
-            margin-top: 40px;
-        }
         .titleSection {
             background-color: black;
             position: absolute;
-            top: 35%; /* Adjust this value as needed */
-            left: 7%;
+            top: 30%; /* Adjust this value as needed */
+            left: 11%;
             text-align: center;
             font-family: 'Orbitron', sans-serif; /* Futuristic font */
             font-size: 60px;
@@ -59,24 +59,71 @@
             color: white;
         }
 
-        .gameOver-container {
-            text-align: center;
-            margin-top: 300px;
-            padding: 20px;
-            animation: creditsScroll 15s linear infinite;
+        .generalFeedbackContainer{
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+            display: flex;
+            position: relative;
+            width: 100%;
+            height: 90%;
+            flex-direction: row; /* Ensure items are arranged horizontally */
+            justify-content: space-between; /* Spread items horizontally */
         }
 
-        .text {
-            font-family: 'Orbitron', sans-serif; /* Futuristic font */
-            margin-bottom: 10px;
-            padding: 20px;
+
+        .textCases {
+            margin-left: 5%;
+            position: relative;
+            top: 55%;
+            font-size: 18px;
+            font-family: 'Orbitron', sans-serif;
+            color: #0ac050;
+            text-align: center;
+        }
+
+        
+        .textCases strong {
             color: white;
         }
 
-        .text strong {
-            font-family: 'Orbitron', sans-serif;
-            color: #0ac050;
+        
+        .userFeedbackcontainer {
+
+            background-color: rgba(43, 30, 75, 0.8);
+            box-shadow: 0 0 10px rgba(168, 164, 164, 0.719);
+            width: 50%;
+            height: 50%;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Box shadow for depth */
+            margin-top: 10%; /* Add some margin for separation */
+            margin-right: 5%; /* Add some margin for separation */
         }
+
+    .userFeedbackcontainer .title {
+        
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .userFeedbackcontainer .feedback {
+        font-size: 18px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .userFeedbackcontainer .score,
+    .userFeedbackcontainer .time {
+        font-size: 16px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
 
         .mainMenu-button {
             position: fixed;
@@ -101,29 +148,39 @@
     </style>
 </head>
 <body>
-<div class="titleSection">
-    <div id="gameTitle">
-        <b>CyberTrace</b>
-    </div>
-    <div id="sloganDesc">
-        <b>A Digital Forensics Experience</b>
-    </div>
-</div>
+    
+    <div class="generalFeedbackContainer">
+        <div class="titleSection">
+            <div id="gameTitle">
+                <b>CyberTrace</b>
+            </div>
+            <div id="sloganDesc">
+                <b>A Digital Forensics Experience</b>
+            </div>
+        </div>
+    
+        <div class="textCases">
+            <b>You have completed all the suspicious cases for the day.<br>
+                Log back in tomorrow as there will always be more cases to view.</b>
+                <br></br>
+                <br></br>
+                <strong>You can restart the game to go back through the scenarios.<br>
+                    More scenarios are planned for the future.</strong>
+        </div>
 
-<main class="gameOver-container">
-    <div class="text">
-        <strong>You have completed all the suspicious cases for the day.<br>
-            Log back in tomorrow as there will always be more cases to view.</strong>
+        <div class="userFeedbackcontainer">
+            <div class="title">User Feedback</div>
+            <div class="feedback">Congratulations! You have completed the scenarios.</div>
+            <div class="score">Score: <span id="userScore">[User Score]</span></div>
+            <div class="time">Time Taken: <span id="userTime">[User Time]</span></div>
+        </div>
+
     </div>
-    <br>
-    <div class="text">
-        You can restart the game to go back through the scenarios.<br>
-        More scenarios are planned for the future.
-    </div>
-</main>
+
 
 <footer class="mainMenu-button">
     <button onclick="location.href='/mainMenu'">Main Menu</button>
 </footer>
 </body>
 </html>
+
