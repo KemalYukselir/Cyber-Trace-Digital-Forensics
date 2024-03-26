@@ -9,113 +9,58 @@
         body {
             background-image: url('/img/cyberTraceBackground.jpg');
             background-size: cover;
-            /* background-position: center;             */
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
 
-        /* Import Google Fonts API */
-        @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700&display=swap');
+        .login-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+        }
 
-        .mainMenuButtons button {
-            background: none;
-            border: none;
-            border-radius: 10px; /* Border corner radius */
-            color: white; /* White text */
-            cursor: pointer; /* Pointer/hand icon */
-            width: 350px; /* Set a width */
-            height: 70px; /* Set a height */
+        .login-container h2 {
             margin-bottom: 20px;
-            display: block; /* Make the buttons appear below each other */
-            position: relative;
-            top: 370px;
-            left: 270px;
-            font-size: 25px;
-            font-family: 'Exo 2', sans-serif; /* Use Exo 2 font */
-            font-weight: 700; /* Bold font weight */
-            letter-spacing: 1px; /* Add spacing between letters */
-            line-height: 70px; /* Center text vertically */
-            text-align: center; /* Center text horizontally */
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
-            transition: background-color 0.3s ease; /* Smooth transition for background color */
+            color: #333;
         }
 
-        /* Add hover effect */
-        .mainMenuButtons button:hover {
-            color: #45a049;
-            transform: scale(1.1); /* Grow text size on hover */
-
-        }
-        .titleSection {
-            position: absolute;
-            top: 250px;
-            left: 450px;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            font-family: 'Orbitron', sans-serif; /* Futuristic font */
-            color: #00ff00; /* Green text color */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+        .login-form input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
         }
 
-        .titleSection::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            width: 200px;
-            height: 5px;
-            background-color: #00ff00; /* Green line */
-            transform: translateX(-50%);
-            box-shadow: 0 0 10px #00ff00; /* Glow effect */
-        }
-
-
-        .titleSection::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            width: 200px;
-            height: 5px;
-            background-color: #ff0000; /* Red line */
-            transform: translateX(-50%);
-            box-shadow: 0 0 10px #ff0000; /* Glow effect */
-}
-
-        #gameTitle {
-            font-size: 90px;
+        .login-form button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
             color: white;
-
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        #sloganDesc {
-            font-size: 25px;
-            color: white;
+        .login-form button[type="submit"]:hover {
+            background-color: #406042;
         }
-
-        .loginContainer {
-            position: absolute;
-            top: 400px;
-            left: 450px;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
     </style>
 </head>
 <body>
-    <div class="titleSection">
-        <div id="gameTitle">
-            <b>CyberTrace</b>
-        </div>
-        <div id="sloganDesc">
-            <p>Please Login to <strong>The CyberTrace System</strong>: </p>
-        </div>
-    </div>
-
-    <div class="loginContainer">
-        <form action="/login" method="post">
-            <input id="username" name="username" placeholder="Username" required type="text" th:value="${username}"/>
-            <button type="submit">Login</button>
-        </form>
-    </div>
+<div class="login-container">
+    <h2>Login to CyberTrace</h2>
+    <form class="login-form" action="/login" method="post">
+        <input id="username" name="username" placeholder="Username" required type="text" th:value="${username}"/>
+        <button type="submit">Login</button>
+    </form>
+</div>
 </body>
 </html>
