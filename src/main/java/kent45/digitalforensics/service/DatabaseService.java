@@ -49,7 +49,7 @@ public class DatabaseService {
         // SQL queries to delete users in table and insert new user into the users table
         var query = "TRUNCATE TABLE LoggedInUser";
         runUpdateQuery(query, new ArrayList<>());
-        query = "INSERT INTO LoggedInUser VALUES(?)";
+        query = "INSERT INTO LoggedInUser (user) VALUES(?)";
 
         //Sets the parameters in the query to the username
         var params = new ArrayList<>();
@@ -67,6 +67,71 @@ public class DatabaseService {
         var query = "SELECT user FROM LoggedInUser";
 
         return getStringFromQuery(query, new ArrayList<>());
+    }
+
+    /**
+     * Returns the game play stats
+     * @return the game play stats json
+     */
+    public GamePlayStatsJson getGamePlayStats() {
+        var query = "SELECT * FROM LoggedInUser";
+
+        try (ResultSet results = runSelectQuery(query)) {
+            if (results != null) {
+                results.next();
+
+                return new GamePlayStatsJson(results.getString(1),
+                        results.getInt(2),
+                        results.getInt(3),
+                        results.getInt(4) / 1000);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * Resets the game play stats for the logged-in user
+     * @return If the update was successful
+     */
+    public boolean resetGamePlayStats() {
+        var username = getLoggedInUser();
+
+        var query = "UPDATE LoggedInUser SET scenariosCorrect=0, scenariosWrong=0, timeTaken=0 WHERE user=?";
+
+        //Sets the parameters in the query to the username
+        var params = new ArrayList<>();
+        params.add(username);
+
+        return runUpdateQuery(query, params) != 0 & updateUsersCurrentScore(0);
+    }
+
+    /**
+     * Updates the game play stats for the logged-in user
+     * @param correctJudgment
+     * @param timeTakenIncrement
+     * @return If the update was successful
+     */
+    public boolean updateGamePlayStats(boolean correctJudgment, int timeTakenIncrement) {
+        var username = getLoggedInUser();
+
+        var query = "";
+
+        if (correctJudgment) {
+            query = "UPDATE LoggedInUser SET scenariosCorrect=scenariosCorrect+1, timeTaken=timeTaken+? WHERE user=?";
+        } else {
+            query = "UPDATE LoggedInUser SET scenariosWrong=scenariosWrong+1, timeTaken=timeTaken+? WHERE user=?";
+        }
+
+        //Sets the parameters in the query
+        var params = new ArrayList<>();
+        params.add(timeTakenIncrement);
+        params.add(username);
+
+        return runUpdateQuery(query, params) != 0;
+
     }
 
     /**
