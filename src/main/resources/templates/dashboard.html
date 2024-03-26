@@ -276,7 +276,7 @@
     </style>
 </head>
 <body>
-    <audio id="menuAudio" src="/img/audio/AETHER - Density & Time.mp3"></audio>
+    <audio id="menuAudio" src="/img/audio/AETHER - Density & Time.mp3" volume="0.1"></audio>
 
 
  
@@ -297,7 +297,6 @@
             <div class="overview">
                 <h2 id="dashboardTitle">Subject <span th:text="${getUsersLogin}"></span> Status Online...</h2>
                 <p id="overviewText">Select an option to view overview. </p>
-                <!-- <p th:text="${getUsersLogin}"></p>  -->
             
                 <!-- <div id = "scenarioDifficulty">
                     Difficulty: 
@@ -432,9 +431,6 @@ function resetClock() {
 
 
     window.onload = function() {
-        audio = document.getElementById("menuAudio")
-        audio.play();
-        audio.volume = 0.1;
         resetClock(); // Call resetClock function when the window loads to start the clock
     }
 
