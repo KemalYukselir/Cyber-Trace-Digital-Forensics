@@ -38,7 +38,8 @@ public class DashboardController {
 
         return new ModelAndView("dashboard")
                 .addObject("scenario", currentScenario)
-                .addObject("getUsersCurrentScore", databaseService.getUsersCurrentScore());
+                .addObject("getUsersCurrentScore", databaseService.getUsersCurrentScore())
+                .addObject("getUsersLogin", databaseService.getLoggedInUser());
     }
 
     @PostMapping("/judgement/guilty")

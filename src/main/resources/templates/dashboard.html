@@ -219,10 +219,6 @@
             background-size: 50%; /* Adjust the size of the logo as needed */
         }
 
-        #dashboardTitle {
-            text-align: center;
-        }
-
         #overviewText {
             text-align: center;
         }
@@ -240,6 +236,7 @@
         }
         
         .overview h2 {
+            display: inline-block;
             margin-top: 0;
             text-align: left; /* Align the h2 text to the left */
             color: green;
@@ -281,13 +278,7 @@
 <body>
     <audio id="menuAudio" src="/img/audio/AETHER - Density & Time.mp3"></audio>
 
-    <!-- <div id = "loggedInUserDisplay">
-        Logged in: 
-    </div>
 
-    <div id = "scenarioDifficulty">
-        Difficulty: 
-    </div> -->
  
 
     <div class="container">
@@ -304,8 +295,13 @@
             </div>
 
             <div class="overview">
-                <h2 id="dashboardTitle">Status Online...</h2>
-                <p id="overviewText">Select an option to view overview.</p>
+                <h2 id="dashboardTitle">Subject <span th:text="${getUsersLogin}"></span> Status Online...</h2>
+                <p id="overviewText">Select an option to view overview. </p>
+                <!-- <p th:text="${getUsersLogin}"></p>  -->
+            
+                <!-- <div id = "scenarioDifficulty">
+                    Difficulty: 
+                </div> -->
 
                 <table id="textsTable" class="dataTable" style="display:none">
                     <tbody>
@@ -471,9 +467,6 @@ function resetClock() {
 
 // Array of audio file paths
 var audioPaths = ['img/audio/typingVar1.mp3', 'img/audio/typingVar2.mp3', 'img/audio/typingVar3.mp3', 'img/audio/typingVar4.mp3'];
-
-// typingSound.playbackRate = 0.5; // Set the playback rate to double the speed
-
 
 function simulateTyping(text, element) {
     var index = 0;
