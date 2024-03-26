@@ -13,24 +13,69 @@
             font-family: Arial, sans-serif;
         }
 
+        .header {
+            text-align: center;
+            margin-top: 350px; 
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .header h1 {
+            color: #fff;
+            font-size: 72px; 
+            margin: 0;
+            margin-bottom: 10px; 
+        }
+
+        .header h2 {
+            color: #fff;
+            font-size: 24px; 
+            margin: 5px 0; 
+        }
+
+        .header h1::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 5px;
+            background-color: red;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px red;
+        }
+
+        .header h1::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 5px;
+            background-color: rgb(31, 146, 56);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px rgb(23, 135, 23);
+        }
+
         .login-container {
             position: absolute;
-            top: 50%;
+            top: 60%; 
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(43, 30, 75, 0.8);
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+            color: #fff;
         }
 
         .login-container h2 {
             margin-bottom: 20px;
-            color: #333;
+            text-align: center; 
         }
 
         .login-form input[type="text"] {
-            width: 100%;
+            width: calc(100% - 22px);
             padding: 10px;
             margin-bottom: 20px;
             border: 1px solid #ccc;
@@ -43,20 +88,24 @@
             padding: 10px;
             border: none;
             border-radius: 5px;
-            background-color: #4CAF50;
+            background-color: #4b554c;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         .login-form button[type="submit"]:hover {
-            background-color: #406042;
+            background-color: #373e38;
         }
     </style>
 </head>
 <body>
+<div class="header">
+    <h1>CyberTrace</h1>
+    <h2>A Digital Forensics Experience</h2> 
+</div>
 <div class="login-container">
-    <h2>Login to CyberTrace</h2>
+    <h2>Login</h2>
     <form class="login-form" action="/login" method="post">
         <input id="username" name="username" placeholder="Username" required type="text" th:value="${username}"/>
         <button type="submit">Login</button>
