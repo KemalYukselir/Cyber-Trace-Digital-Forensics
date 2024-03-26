@@ -18,7 +18,7 @@ public class MainMenuController {
 
     @GetMapping("/mainMenu")
     public ModelAndView mainMenu() {
-        databaseService.updateUsersCurrentScore(0);
+        databaseService.resetGamePlayStats();
 
         return new ModelAndView("mainMenu");
     }

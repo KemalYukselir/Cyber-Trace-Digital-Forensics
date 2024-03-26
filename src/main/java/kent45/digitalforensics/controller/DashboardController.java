@@ -49,28 +49,34 @@ public class DashboardController {
 
     @PostMapping("/judgement/guilty")
     public String judgement_guilty(@RequestParam("userMultiplier") int userMultiplier,
+                                   @RequestParam("timeLeft") int timeLeft,
                                    RedirectAttributes redirectAttributes) {
+        var correctJudgment = currentScenario.isGuilty();
         var userScore = databaseService.getUsersCurrentScore();
-        var newScore = currentScenario.isGuilty() ? userScore + (userMultiplier * currentScenario.difficulty()) : userScore - (userMultiplier);
+        var newScore = correctJudgment ? userScore + (userMultiplier * currentScenario.difficulty()) : userScore - (userMultiplier);
+        databaseService.updateUsersCurrentScore(newScore);
+        databaseService.updateGamePlayStats(correctJudgment, 300000 - timeLeft); // 5 minutes - time left
 
         // Redirects to the dashboard to make sure the url updates back to dashboard with attributes similar to MAV object
         redirectAttributes.addFlashAttribute("judgement", "guilty");
         redirectAttributes.addFlashAttribute("isGuilty", currentScenario.isGuilty());
-        redirectAttributes.addFlashAttribute("userScore", databaseService.updateUsersCurrentScore(newScore));
 
         return "redirect:/dashboard?fromMainMenu=false";
     }
 
     @PostMapping("/judgement/innocent")
     public String judgement_innocent(@RequestParam("userMultiplier") int userMultiplier,
+                                     @RequestParam("timeLeft") int timeLeft,
                                      RedirectAttributes redirectAttributes) {
+        var correctJudgment = !currentScenario.isGuilty();
         var userScore = databaseService.getUsersCurrentScore();
-        var newScore = !currentScenario.isGuilty() ? userScore + (userMultiplier * currentScenario.difficulty()) : userScore - (userMultiplier);
+        var newScore = correctJudgment ? userScore + (userMultiplier * currentScenario.difficulty()) : userScore - (userMultiplier);
+        databaseService.updateUsersCurrentScore(newScore);
+        databaseService.updateGamePlayStats(correctJudgment, 300000 - timeLeft); // 5 minutes - time left
 
         // Redirects to the dashboard to make sure the url updates back to dashboard with attributes similar to MAV object
         redirectAttributes.addFlashAttribute("judgement", "innocent");
         redirectAttributes.addFlashAttribute("isGuilty", currentScenario.isGuilty());
-        redirectAttributes.addFlashAttribute("userScore", databaseService.updateUsersCurrentScore(newScore));
 
         return "redirect:/dashboard?fromMainMenu=false";
     }
