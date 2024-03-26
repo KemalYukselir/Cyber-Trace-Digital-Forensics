@@ -49,7 +49,7 @@ public class DatabaseService {
         // SQL queries to delete users in table and insert new user into the users table
         var query = "TRUNCATE TABLE LoggedInUser";
         runUpdateQuery(query, new ArrayList<>());
-        query = "INSERT INTO LoggedInUser (User) VALUES(?)";
+        query = "INSERT INTO LoggedInUser VALUES(?)";
 
         //Sets the parameters in the query to the username
         var params = new ArrayList<>();
@@ -129,7 +129,7 @@ public class DatabaseService {
      * @return List of leaderboard jsons
      */
     public List<LeaderboardJson> getLeaderboardData() {
-        var query = "SELECT username, high_score FROM Users ORDER BY high_score DESC";
+        var query = "SELECT username, highScore FROM Users ORDER BY highScore DESC";
 
         try (ResultSet results = runSelectQuery(query)) {
             var users = new ArrayList<LeaderboardJson>();
@@ -154,7 +154,7 @@ public class DatabaseService {
     public int getUsersCurrentScore() {
         var username = getLoggedInUser();
 
-        var query = "SELECT current_score FROM Users WHERE username=?";
+        var query = "SELECT currentScore FROM Users WHERE username=?";
 
         // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
         var parameters = new ArrayList<>();
@@ -171,7 +171,7 @@ public class DatabaseService {
     public boolean updateUsersCurrentScore(int score) {
         var username = getLoggedInUser();
 
-        var query = "UPDATE Users SET current_score=? WHERE username=?";
+        var query = "UPDATE Users SET currentScore=? WHERE username=?";
 
         // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
         var parameters = new ArrayList<>();
@@ -190,7 +190,7 @@ public class DatabaseService {
         var score = getUsersCurrentScore();
 
         if (getUsersHighScore(username) < score) {
-            var query = "UPDATE Users SET high_score=? WHERE username=?";
+            var query = "UPDATE Users SET highScore=? WHERE username=?";
 
             // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
             var parameters = new ArrayList<>();
@@ -207,7 +207,7 @@ public class DatabaseService {
      * @return high score
      */
     private int getUsersHighScore(String username) {
-        var query = "SELECT high_score FROM Users WHERE username=?";
+        var query = "SELECT highScore FROM Users WHERE username=?";
 
         // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
         var parameters = new ArrayList<>();
