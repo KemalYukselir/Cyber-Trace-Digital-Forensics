@@ -8,114 +8,115 @@
     <style>
         body {
             background-image: url('/img/cyberTraceBackground.jpg');
-            background-size: cover;
-            /* background-position: center;             */
+            background-size: auto;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
         }
 
-        /* Import Google Fonts API */
-        @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700&display=swap');
-
-        .mainMenuButtons button {
-            background: none;
-            border: none;
-            border-radius: 10px; /* Border corner radius */
-            color: white; /* White text */
-            cursor: pointer; /* Pointer/hand icon */
-            width: 350px; /* Set a width */
-            height: 70px; /* Set a height */
-            margin-bottom: 20px;
-            display: block; /* Make the buttons appear below each other */
+        .header {
+            text-align: center;
+            margin-top: 15vh; 
             position: relative;
-            top: 370px;
-            left: 270px;
-            font-size: 25px;
-            font-family: 'Exo 2', sans-serif; /* Use Exo 2 font */
-            font-weight: 700; /* Bold font weight */
-            letter-spacing: 1px; /* Add spacing between letters */
-            line-height: 70px; /* Center text vertically */
-            text-align: center; /* Center text horizontally */
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
-            transition: background-color 0.3s ease; /* Smooth transition for background color */
+            color: #fff;
         }
 
-        /* Add hover effect */
-        .mainMenuButtons button:hover {
-            color: #45a049;
-            transform: scale(1.1); /* Grow text size on hover */
-
-        }
-        .titleSection {
-            position: absolute;
-            top: 250px;
-            left: 450px;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            font-family: 'Orbitron', sans-serif; /* Futuristic font */
-            color: #00ff00; /* Green text color */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+        .header h1 {
+            font-size: 3rem; 
+            margin: 0;
+            margin-bottom: 10px;
         }
 
-        .titleSection::before {
+        .header h2 {
+            font-size: 2rem; 
+            margin: 10px 0; 
+        }
+
+        .header h1::before,
+        .header h1::after {
             content: '';
             position: absolute;
+            width: 200px;
+            height: 5px;
+            background-color: red;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px red;
+        }
+
+        .header h1::before {
             top: -10px;
-            left: 50%;
-            width: 200px;
-            height: 5px;
-            background-color: #00ff00; /* Green line */
-            transform: translateX(-50%);
-            box-shadow: 0 0 10px #00ff00; /* Glow effect */
         }
 
+        .header h1::after {
+            bottom: -10px;
+            background-color: rgb(31, 146, 56);
+            box-shadow: 0 0 10px rgb(23, 135, 23);
+        }
 
-        .titleSection::after {
-            content: '';
+        .login-container {
             position: absolute;
-            bottom: -20px;
+            top: 50%; 
             left: 50%;
-            width: 200px;
-            height: 5px;
-            background-color: #ff0000; /* Red line */
-            transform: translateX(-50%);
-            box-shadow: 0 0 10px #ff0000; /* Glow effect */
-}
-
-        #gameTitle {
-            font-size: 90px;
-            color: white;
-
-        }
-
-        #sloganDesc {
-            font-size: 25px;
-            color: white;
-        }
-
-        .loginContainer {
-            position: absolute;
-            top: 400px;
-            left: 450px;
             transform: translate(-50%, -50%);
+            background-color: rgba(43, 30, 75, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5); 
+            color: #fff;
+            width: 300px; 
+            max-width: 90%; 
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
             text-align: center;
         }
 
+        .login-form input[type="text"] {
+            width: 100%;
+            padding: 12px; 
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 25px; 
+            background-color: rgba(255, 255, 255, 0.1); 
+            color: #fff;
+            box-sizing: border-box;
+            outline: none; 
+        }
+
+        .login-form input[type="text"]::placeholder {
+            color: #ccc; 
+        }
+
+        .login-form button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background-color: #4b554c;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            outline: none; 
+        }
+
+        .login-form button[type="submit"]:hover {
+            background-color: #373e38;
+        }
     </style>
 </head>
 <body>
-    <div class="titleSection">
-        <div id="gameTitle">
-            <b>CyberTrace</b>
-        </div>
-        <div id="sloganDesc">
-            <p>Please Login to <strong>The CyberTrace System</strong>: </p>
-        </div>
-    </div>
-
-    <div class="loginContainer">
-        <form action="/login" method="post">
-            <input id="username" name="username" placeholder="Username" required type="text" th:value="${username}"/>
-            <button type="submit">Login</button>
-        </form>
-    </div>
+<div class="header">
+    <h1>CyberTrace</h1>
+    <h2 style="font-size: 2rem;">A Digital Forensics Experience</h2> 
+</div>
+<div class="login-container">
+    <h2>Login</h2>
+    <form class="login-form" action="/login" method="post">
+        <input id="username" name="username" placeholder="Username" required type="text" th:value="${username}"/>
+        <button type="submit">Login</button>
+    </form>
+</div>
 </body>
 </html>
