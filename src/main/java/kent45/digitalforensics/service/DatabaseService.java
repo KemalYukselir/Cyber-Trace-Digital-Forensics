@@ -49,7 +49,7 @@ public class DatabaseService {
         // SQL queries to delete users in table and insert new user into the users table
         var query = "TRUNCATE TABLE LoggedInUser";
         runUpdateQuery(query, new ArrayList<>());
-        query = "INSERT INTO LoggedInUser (User) VALUES(?)";
+        query = "INSERT INTO LoggedInUser (user) VALUES(?)";
 
         //Sets the parameters in the query to the username
         var params = new ArrayList<>();
@@ -67,6 +67,71 @@ public class DatabaseService {
         var query = "SELECT user FROM LoggedInUser";
 
         return getStringFromQuery(query, new ArrayList<>());
+    }
+
+    /**
+     * Returns the game play stats
+     * @return the game play stats json
+     */
+    public GamePlayStatsJson getGamePlayStats() {
+        var query = "SELECT * FROM LoggedInUser";
+
+        try (ResultSet results = runSelectQuery(query)) {
+            if (results != null) {
+                results.next();
+
+                return new GamePlayStatsJson(results.getString(1),
+                        results.getInt(2),
+                        results.getInt(3),
+                        results.getInt(4) / 1000);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * Resets the game play stats for the logged-in user
+     * @return If the update was successful
+     */
+    public boolean resetGamePlayStats() {
+        var username = getLoggedInUser();
+
+        var query = "UPDATE LoggedInUser SET scenariosCorrect=0, scenariosWrong=0, timeTaken=0 WHERE user=?";
+
+        //Sets the parameters in the query to the username
+        var params = new ArrayList<>();
+        params.add(username);
+
+        return runUpdateQuery(query, params) != 0 & updateUsersCurrentScore(0);
+    }
+
+    /**
+     * Updates the game play stats for the logged-in user
+     * @param correctJudgment
+     * @param timeTakenIncrement
+     * @return If the update was successful
+     */
+    public boolean updateGamePlayStats(boolean correctJudgment, int timeTakenIncrement) {
+        var username = getLoggedInUser();
+
+        var query = "";
+
+        if (correctJudgment) {
+            query = "UPDATE LoggedInUser SET scenariosCorrect=scenariosCorrect+1, timeTaken=timeTaken+? WHERE user=?";
+        } else {
+            query = "UPDATE LoggedInUser SET scenariosWrong=scenariosWrong+1, timeTaken=timeTaken+? WHERE user=?";
+        }
+
+        //Sets the parameters in the query
+        var params = new ArrayList<>();
+        params.add(timeTakenIncrement);
+        params.add(username);
+
+        return runUpdateQuery(query, params) != 0;
+
     }
 
     /**
@@ -129,12 +194,14 @@ public class DatabaseService {
      * @return List of leaderboard jsons
      */
     public List<LeaderboardJson> getLeaderboardData() {
-        var query = "SELECT username, high_score FROM Users ORDER BY high_score DESC";
+        var query = "SELECT username, highScore FROM Users ORDER BY highScore DESC";
 
         try (ResultSet results = runSelectQuery(query)) {
             var users = new ArrayList<LeaderboardJson>();
+            var rank = 1;
             while (results.next()) {
-                users.add(new LeaderboardJson(results.getString(1), results.getInt(2)));
+                users.add(new LeaderboardJson(rank, results.getString(1), results.getInt(2)));
+                rank++;
             }
             return users;
 
@@ -147,26 +214,12 @@ public class DatabaseService {
 
     /**
      * Returns the users current score
-     * @param username username
      * @return current score
      */
-    public int getUsersCurrentScore(String username) {
-        var query = "SELECT current_score FROM Users WHERE username=?";
+    public int getUsersCurrentScore() {
+        var username = getLoggedInUser();
 
-        // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
-        var parameters = new ArrayList<>();
-        parameters.add(username);
-
-        return getIntFromQuery(query, parameters);
-    }
-
-    /**
-     * Private helper method to return the users current score
-     * @param username username
-     * @return high score
-     */
-    private int getUsersHighScore(String username) {
-        var query = "SELECT high_score FROM Users WHERE username=?";
+        var query = "SELECT currentScore FROM Users WHERE username=?";
 
         // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
         var parameters = new ArrayList<>();
@@ -177,12 +230,13 @@ public class DatabaseService {
 
     /**
      * Updates the users current score
-     * @param username username
      * @param score current score
      * @return If the update was successful
      */
-    public boolean updateUsersCurrentScore(String username, int score) {
-        var query = "UPDATE Users SET current_score=? WHERE username=?";
+    public boolean updateUsersCurrentScore(int score) {
+        var username = getLoggedInUser();
+
+        var query = "UPDATE Users SET currentScore=? WHERE username=?";
 
         // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
         var parameters = new ArrayList<>();
@@ -193,14 +247,15 @@ public class DatabaseService {
     }
 
     /**
-     * Sets the users high score if the new score is higher
-     * @param username username
-     * @param score new score
+     * Sets the users high score if the current score is higher
      * @return If the update was successful
      */
-    public boolean setUsersHighScore(String username, int score) {
+    public boolean setUsersHighScore() {
+        var username = getLoggedInUser();
+        var score = getUsersCurrentScore();
+
         if (getUsersHighScore(username) < score) {
-            var query = "UPDATE Users SET high_score=? WHERE username=?";
+            var query = "UPDATE Users SET highScore=? WHERE username=?";
 
             // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
             var parameters = new ArrayList<>();
@@ -210,6 +265,20 @@ public class DatabaseService {
             return runUpdateQuery(query, parameters) == 1;
         }
         return true;
+    }
+
+    /**
+     * Private helper method to return the users current score
+     * @return high score
+     */
+    private int getUsersHighScore(String username) {
+        var query = "SELECT highScore FROM Users WHERE username=?";
+
+        // Create the parameter list and add the parameters (These will replace the above (?) in execution of the query)
+        var parameters = new ArrayList<>();
+        parameters.add(username);
+
+        return getIntFromQuery(query, parameters);
     }
 
     /**

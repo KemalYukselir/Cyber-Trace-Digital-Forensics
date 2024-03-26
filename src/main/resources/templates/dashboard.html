@@ -7,27 +7,25 @@
     <title>Scenario Dashboard</title>
     <style>
         html {
-            zoom: 90%;
-
+            zoom: 100%;
         }
         body {
             font-family: "Courier New", monospace;
             /* background-image: radial-gradient(
                 hsla(263, 88%, 10%, 0.838), black 300%); */
-            background-image: url('/img/scenariodashboardBackground.jpeg');
+            background-image: url('/img/terminalBackground.webp');
             background-size: cover;
             height: 100%;
             overflow: hidden;
             color: white;
             text-shadow: 0 0 2px #C8C8C8;
 
-            
         }
 
         .clockTimer {
             position: relative;
-            margin-top: 20px;
-            margin-right: 60px;
+            margin-top: 50px;
+            margin-right: 130px;
             justify-content: center;
             width: 150px;
             height: 150px;
@@ -52,9 +50,10 @@
 
         .countdown {
             position: relative;
-            text-align: center;
-            font-size: 24px;
-            margin-top: 170px;
+            font-size: 21px;
+            margin-top: 12px;
+            text-align: right;
+            padding-left: 190px;
         }
 
         #scoreDisplay {
@@ -71,13 +70,16 @@
 
         #multiplierDisplay {
             position: relative;
-            font-size: 25px;
+            font-size: 19px;
+            margin-top: 40px;
+            padding-left: 165px;
         }
 
         #multiplierValue {
             position: relative;
             text-align: center;
             margin-top: 10px;
+            padding-left: 45px;
         }
         
         .container {
@@ -88,18 +90,19 @@
             margin-right: 100px;
         }
         .dashboard {
-            background-color: rgb(78, 68, 86);
+            background-color: rgb(42, 40, 54);
             background-image: radial-gradient(
-                hsla(262, 21%, 33%, 0.838), rgb(92, 92, 92) 200%
+                hsla(264, 21%, 19%, 0.838), rgb(92, 92, 92) 200%
             );
             border-radius: 10px;
             padding: 20px;
             width: 80%;
             height: 80%;
-            max-width: 1400px;
+            max-width: 1500px;
             text-align: center;
             box-shadow: 0 0 10px rgba(168, 164, 164, 0.719);
             display: flex;
+            
         }
         .options ul{
             list-style-type: none; 
@@ -216,8 +219,14 @@
             background-size: 50%; /* Adjust the size of the logo as needed */
         }
 
+        #overviewText {
+            text-align: center;
+        }
+
         .overview {
             background-color: black;
+            background-size: cover;
+            
             border-radius: 20px;
             padding: 20px;
             margin-top: 20px;
@@ -227,6 +236,7 @@
         }
         
         .overview h2 {
+            display: inline-block;
             margin-top: 0;
             text-align: left; /* Align the h2 text to the left */
             color: green;
@@ -248,7 +258,7 @@
             right: 20px;
         }
         .back-button button {
-            background-color: #030303;
+            background-color: green;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -266,16 +276,7 @@
     </style>
 </head>
 <body>
-    <audio id="menuAudio" src="/img/audio/AETHER - Density & Time.mp3"></audio>
-
-    <!-- <div id = "loggedInUserDisplay">
-        Logged in: 
-    </div>
-
-    <div id = "scenarioDifficulty">
-        Difficulty: 
-    </div> -->
- 
+    <audio id="menuAudio" src="/img/audio/AETHER - Density & Time.mp3" volume="0.1"></audio>
 
     <div class="container">
 
@@ -291,8 +292,12 @@
             </div>
 
             <div class="overview">
-                <h2 id="dashboardTitle">Overview</h2>
-                <p id="overviewText">Select an option to view overview.</p>
+                <h2 id="dashboardTitle">Subject <span th:text="${getUsersLogin}"></span> Status Online...</h2>
+                <p id="overviewText">Select an option to view overview. </p>
+            
+                <!-- <div id = "scenarioDifficulty">
+                    Difficulty: 
+                </div> -->
 
                 <table id="textsTable" class="dataTable" style="display:none">
                     <tbody>
@@ -354,20 +359,24 @@
                 <div class="clockTimer">
                     <div class="second"></div>
                     <div class="countdown" id="countdown">05:00</div>
+                    <div class="multiplierDisplay" id="multiplierDisplay">Multiplier: <div id = "multiplierValue">5x</div></div>
                 </div>
+
 
 
                 <div class="judgementButtons">
                     <li id= "esculateButton">
                         <form action="/judgement/guilty" method="post">
                             <button type="submit" onclick="handleButtonClick('Escalate')"><b>Escalate</b></button>
-                            <input id = "userMultiplierEsculate" type="hidden" name="userMultiplier" th:value="${multiplierUserValue}">
+                            <input id = "userMultiplierEscalate" type="hidden" name="userMultiplier" th:value="5">
+                            <input id = "timeLeftEscalate" type="hidden" name="timeLeft" th:value="300000">
                         </form>
                     </li>
                     <li id= "notSuspiciousButton">
                         <form action="/judgement/innocent" method="post">
                             <button onclick="handleButtonClick('Not Suspicious')"><b>Not Suspicious</b></button>
-                            <input id = "userMultipliernotSuspicious" type="hidden" name="userMultiplier" th:value="${multiplierUserValue}">
+                            <input id = "userMultiplierNotSuspicious" type="hidden" name="userMultiplier" th:value="5">
+                            <input id = "timeLeftNotSuspicious" type="hidden" name="timeLeft" th:value="300000">
                         </form>
                     </li>
                 </div>
@@ -383,12 +392,11 @@
     </div>
     <script>
 var interval; // Declare the interval variable outside of any function so it can be accessed globally
-var score = 0;
 
 
 function setMultiplierValue(multiplierValue) {
-    document.getElementById("userMultiplierEsculate").value = multiplierValue;
-    document.getElementById("userMultipliernotSuspicious").value = multiplierValue;
+    document.getElementById("userMultiplierEscalate").value = multiplierValue;
+    document.getElementById("userMultiplierNotSuspicious").value = multiplierValue;
 }
 
 function resetClock() {
@@ -400,23 +408,18 @@ function resetClock() {
         if (timeLeft < 60000){
             document.getElementById('multiplierValue').textContent = "1x";
             setMultiplierValue(1)
-            
         } else if (timeLeft < 120000){
             document.getElementById('multiplierValue').textContent = "2x";
             setMultiplierValue(2)
-
         } else if (timeLeft < 180000){
             document.getElementById('multiplierValue').textContent = "3x";
             setMultiplierValue(3)
-
         } else if (timeLeft < 240000) {
             document.getElementById('multiplierValue').textContent = "4x";
             setMultiplierValue(4)
-
         } else if (timeLeft < 300000) {
             document.getElementById('multiplierValue').textContent = "5x";
             setMultiplierValue(5)
-
         }
 
         if (timeLeft < 0) {
@@ -427,9 +430,6 @@ function resetClock() {
 
 
     window.onload = function() {
-        audio = document.getElementById("menuAudio")
-        audio.play();
-        audio.volume = 0.1;
         resetClock(); // Call resetClock function when the window loads to start the clock
     }
 
@@ -442,32 +442,71 @@ function resetClock() {
         switch (buttonText) {
             case 'Emails':
                 overviewText.textContent = "";
-                document.getElementById('emailsTable').style.display = "table";
-                dashboardTitle.textContent = "Emails";
+                simulateTyping("Emails", overviewText);
                 break;
             case 'Transaction History':
                 overviewText.textContent = "";
-                document.getElementById('paymentsTable').style.display = "table";
-                dashboardTitle.textContent = "Transaction History";
+                simulateTyping("Transaction History", overviewText);
                 break;
             case 'Messages Exchanged':
                 overviewText.textContent = "";
-                document.getElementById('textsTable').style.display = "table";
-                dashboardTitle.textContent = "Messages Exchanged";
+                simulateTyping("Messages Exchanged", overviewText);
                 break;
             case 'Records':
                 overviewText.textContent = "";
-                document.getElementById('recordsTable').style.display = "table";
-                dashboardTitle.textContent = "Records";
+                simulateTyping("Records", overviewText);
                 break;
-            case 'Escalate':
-                resetClock()
-                break;
-            case 'Not Suspicious':
-                resetClock()
-                break;
-        }
     }
+
+}
+
+// Array of audio file paths
+var audioPaths = ['img/audio/typingVar1.mp3', 'img/audio/typingVar2.mp3', 'img/audio/typingVar3.mp3', 'img/audio/typingVar4.mp3'];
+
+function simulateTyping(text, element) {
+    var index = 0;
+    dashboardTitle.textContent = ""; // Clear the dashboard title
+    // // Randomly select an audio path
+    var randomIndex = Math.floor(Math.random() * audioPaths.length);
+    var typingSound = new Audio(audioPaths[randomIndex]);
+    typingSound.volume = 0.5; // Set the volume to 50%
+    typingSound.play(); // Play typing sound effect
+    // Disable all buttons while typing
+    var buttons = document.querySelectorAll('.options li button');
+    buttons.forEach(function(button) {
+        button.disabled = true;
+    });
+    var interval = setInterval(function() {
+        dashboardTitle.textContent += text[index];
+        index++;
+        if (index === text.length) {
+            clearInterval(interval);
+            switch (text) {
+                case 'Emails':
+                    document.getElementById('emailsTable').style.display = "table";
+                    // dashboardTitle.textContent = "Emails";
+                    break;
+                case 'Transaction History':
+                    document.getElementById('paymentsTable').style.display = "table";
+                    // dashboardTitle.textContent = "Transaction History";
+                    break;
+                case 'Messages Exchanged':
+                    document.getElementById('textsTable').style.display = "table";
+                    // dashboardTitle.textContent = "Messages Exchanged";
+                    break;
+                case 'Records':
+                    document.getElementById('recordsTable').style.display = "table";
+                    // dashboardTitle.textContent = "Records";
+                    break;
+            }
+            // Enable all buttons after typing is complete
+            buttons.forEach(function(button) {
+            button.disabled = false;
+            });
+        }
+    }, 50); // Adjust typing speed as needed
+}
+
 
     function updateClock(timeLeft) {
         const totalTime = 300000; // 5 minutes in milliseconds
@@ -481,6 +520,10 @@ function resetClock() {
         const minutes = Math.floor(timeLeft / 60000);
         const seconds = Math.floor((timeLeft % 60000) / 1000);
         countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        // Update time left value for form
+        document.getElementById("timeLeftEscalate").value = timeLeft;
+        document.getElementById("timeLeftNotSuspicious").value = timeLeft;
     }
 
     </script>

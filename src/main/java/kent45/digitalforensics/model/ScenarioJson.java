@@ -10,7 +10,7 @@ public record ScenarioJson(
         List<PaymentJson> payments,
         List<TextJson> texts,
         List<RecordJson> records,
-        int awardScore,
+        int difficulty,
         boolean isGuilty
 ) {
 }
