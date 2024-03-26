@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,12 +25,16 @@ public class DashboardController {
     public DashboardController(DatabaseService databaseService) {
         this.databaseService = databaseService;
         this.scenarioQueue = databaseService.scenarioQueue();
-
-        databaseService.updateUsersCurrentScore(0);
     }
 
     @GetMapping("/dashboard")
-    public ModelAndView getDashboard() {
+    public ModelAndView getDashboard(@RequestParam("fromMainMenu") boolean fromMainMenu) {
+        if (fromMainMenu) {
+            // Reset scenario queue and current score
+            scenarioQueue = databaseService.scenarioQueue();
+            databaseService.updateUsersCurrentScore(0);
+        }
+
         if (scenarioQueue.size() == 0) {
             return gameOver();
         }
@@ -52,7 +57,7 @@ public class DashboardController {
         redirectAttributes.addFlashAttribute("isGuilty", currentScenario.isGuilty());
         redirectAttributes.addFlashAttribute("userScore", databaseService.updateUsersCurrentScore(newScore));
 
-        return "redirect:/dashboard";
+        return "redirect:/dashboard?fromMainMenu=false";
     }
 
     @PostMapping("/judgement/innocent")
@@ -66,15 +71,12 @@ public class DashboardController {
         redirectAttributes.addFlashAttribute("isGuilty", currentScenario.isGuilty());
         redirectAttributes.addFlashAttribute("userScore", databaseService.updateUsersCurrentScore(newScore));
 
-        return "redirect:/dashboard";
+        return "redirect:/dashboard?fromMainMenu=false";
     }
 
     @GetMapping("/gameOver")
     public ModelAndView gameOver() {
         databaseService.setUsersHighScore();
-        scenarioQueue = databaseService.scenarioQueue();
-
-        databaseService.updateUsersCurrentScore(0);
 
         return new ModelAndView("gameOver");
     }
