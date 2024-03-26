@@ -372,12 +372,14 @@
                         <form action="/judgement/guilty" method="post">
                             <button type="submit" onclick="handleButtonClick('Escalate')"><b>Escalate</b></button>
                             <input id = "userMultiplierEscalate" type="hidden" name="userMultiplier" th:value="5">
+                            <input id = "timeLeftEscalate" type="hidden" name="timeLeft" th:value="300000">
                         </form>
                     </li>
                     <li id= "notSuspiciousButton">
                         <form action="/judgement/innocent" method="post">
                             <button onclick="handleButtonClick('Not Suspicious')"><b>Not Suspicious</b></button>
                             <input id = "userMultiplierNotSuspicious" type="hidden" name="userMultiplier" th:value="5">
+                            <input id = "timeLeftNotSuspicious" type="hidden" name="timeLeft" th:value="300000">
                         </form>
                     </li>
                 </div>
@@ -521,6 +523,10 @@ function simulateTyping(text, element) {
         const minutes = Math.floor(timeLeft / 60000);
         const seconds = Math.floor((timeLeft % 60000) / 1000);
         countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        // Update time left value for form
+        document.getElementById("timeLeftEscalate").value = timeLeft;
+        document.getElementById("timeLeftNotSuspicious").value = timeLeft;
     }
 
     </script>
