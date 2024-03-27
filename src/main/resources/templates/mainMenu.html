@@ -17,30 +17,29 @@
         .mainMenuButtons button {
             background: none;
             border: none;
-            border-radius: 10px; /* Border corner radius */
-            color: white; /* White text */
-            cursor: pointer; /* Pointer/hand icon */
-            width: 350px; /* Set a width */
-            height: 70px; /* Set a height */
+            border-radius: 10px;
+            color: white; 
+            cursor: pointer; 
+            width: 350px; 
+            height: 70px; 
             margin-bottom: 20px;
-            display: block; /* Make the buttons appear below each other */
+            display: block;
             position: relative;
             top: 370px;
             left: 270px;
             font-size: 25px;
-            font-family: 'Exo 2', sans-serif; /* Use Exo 2 font */
-            font-weight: 700; /* Bold font weight */
-            letter-spacing: 1px; /* Add spacing between letters */
-            line-height: 70px; /* Center text vertically */
-            text-align: center; /* Center text horizontally */
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
-            transition: background-color 0.3s ease; /* Smooth transition for background color */
+            font-family: 'Exo 2', sans-serif; 
+            font-weight: 700; 
+            letter-spacing: 1px; 
+            line-height: 70px; 
+            text-align: center; 
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+            transition: background-color 0.3s ease; 
         }
 
-        /* Add hover effect */
         .mainMenuButtons button:hover {
             color: #45a049;
-            transform: scale(1.1); /* Grow text size on hover */
+            transform: scale(1.1); 
 
         }
 
@@ -50,9 +49,9 @@
             left: 450px;
             transform: translate(-50%, -50%);
             text-align: center;
-            font-family: 'Orbitron', sans-serif; /* Futuristic font */
-            color: #00ff00; /* Green text color */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+            font-family: 'Orbitron', sans-serif;
+            color: #00ff00; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
         }
 
         .titleSection::before {
@@ -132,19 +131,13 @@
         <button onclick="location.href = '/credits'">Credits</button>
     </div>
 
-    <!-- Credit button -->
-   
-    <!-- <div class="audioHolder">
-        <img src="../img/audioLogo.jpg">
-    </div> -->
-
 </body>
     <script>
         window.onload = function() {
             audio = document.getElementById("menuAudio")
             audio.play();
             audio.currentTime += 20; 
-            audio.volume = 0.2;
+            audio.volume = 0.05;
         }
     </script>
 </html>
