@@ -171,10 +171,11 @@
         }
 
         .user-info p {
+            font-size: 13px;
             color: black;
             margin-top: 60px;
             text-align: left;
-            margin-left: 40px;
+            margin-left: 20px;
         }
 
         #esculateButton button {
@@ -294,10 +295,6 @@
             <div class="overview">
                 <h2 id="dashboardTitle">Subject <span th:text="${getUsersLogin}"></span> Status Online...</h2>
                 <p id="overviewText">Select an option to view overview. </p>
-            
-                <!-- <div id = "scenarioDifficulty">
-                    Difficulty: 
-                </div> -->
 
                 <table id="textsTable" class="dataTable" style="display:none">
                     <tbody>
@@ -342,7 +339,7 @@
                         </tr>
                         <tr th:each="record : ${scenario.records}">
                             <td><b><span th:text="${record.title}"> Title </span></b></td>
-                            <td><span th:text="'£' + ${record.description}"> Description </span></td>
+                            <td><span th:text="${record.description}"> Description </span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -353,6 +350,7 @@
                 <div class="user-info">
                     <p>Name: <span th:text="${scenario.subject}"/></p>
                     <p>Overview: <span th:text="${scenario.overview}"/></p>
+                    <p>Difficulty: <span th:text="${scenario.difficulty}"/></p>
                 </div>
                 <div class="clockTimer">
                     <div class="second"></div>
@@ -436,7 +434,7 @@ function resetClock() {
         audio = document.getElementById("menuAudio")
         audio.play();
         audio.currentTime += 50; 
-        audio.volume = 0.2;
+        audio.volume = 0.05;
 
         if (isGuilty && lastJudegment == "guilty") {
             simulateTypingJudgement("Escalate")
