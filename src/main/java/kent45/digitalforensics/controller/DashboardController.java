@@ -85,6 +85,8 @@ public class DashboardController {
     public ModelAndView gameOver() {
         databaseService.setUsersHighScore();
 
-        return new ModelAndView("gameOver");
+        return new ModelAndView("gameOver")
+                .addObject("gamePlayStats", databaseService.getGamePlayStats());
+
     }
 }
