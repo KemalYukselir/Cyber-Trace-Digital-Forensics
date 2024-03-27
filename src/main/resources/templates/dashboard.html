@@ -276,8 +276,7 @@
     </style>
 </head>
 <body>
-    <audio id="menuAudio" src="/img/au
-    dio/EBB - Density & Time.mp3"></audio>
+    <audio id="menuAudio" src="/img/audio/EBB - Density & Time.mp3"></audio>
 
     <div class="container">
 
@@ -434,27 +433,11 @@ function resetClock() {
 
     window.onload = function() {
         resetClock(); // Call resetClock function when the window loads to start the clock
-        // Get the audio element
-        var audio = document.getElementById("menuAudio");
-        
-        // Set the volume
+        audio = document.getElementById("menuAudio")
+        audio.play();
+        audio.currentTime += 50; 
         audio.volume = 0.2;
 
-        // Define the range for random start time (in seconds)
-        var minStartTime = 20; // minimum start time (20 seconds)
-        var maxStartTime = 180; // maximum start time (3 minutes)
-
-        // Generate a random start time within the defined range
-        var randomStartTime = Math.random() * (maxStartTime - minStartTime) + minStartTime;
-        randomStartTime = Math.floor(randomStartTime);
-
-        console.log(randomStartTime)
-        
-        // Set the current time of the audio to the random start time
-        audio.currentTime += randomStartTime;
-
-        // Play the audio
-        audio.play();
         if (isGuilty && lastJudegment == "guilty") {
             simulateTypingJudgement("Escalate")
         } else if (isGuilty && lastJudegment == "innocent") {

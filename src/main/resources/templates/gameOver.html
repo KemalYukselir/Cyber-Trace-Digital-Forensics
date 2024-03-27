@@ -100,8 +100,8 @@
             align-items: center;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Box shadow for depth */
-            margin-top: 10%; /* Add some margin for separation */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            margin-top: 13%; /* Add some margin for separation */
             margin-right: 5%; /* Add some margin for separation */
         }
 
@@ -125,6 +125,18 @@
         text-align: center;
     }
 
+    .userFeedbackcontainer .buttons button {
+        padding: 10px 20px;
+        margin: 0 130px; /* Adjust margin to add space between buttons */
+        background-color: #1ac54d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
         .mainMenu-button {
             position: fixed;
             bottom: 20px;
@@ -133,7 +145,7 @@
 
         .mainMenu-button button {
             padding: 10px 20px;
-            background-color: #15ee56;
+            background-color: #1ac54d;
             color: #FFFFFF;
             border: none;
             border-radius: 5px;
@@ -169,12 +181,16 @@
         </div>
 
         <div class="userFeedbackcontainer">
-            <div class="title">User Feedback</div>
+            <div class="title">User <span th:text="${gamePlayStats.username}"></span> Feedback</div>
             <div class="feedback">Congratulations! You have completed the scenarios.</div>
-            <div class="score">Score: <span id="userScore">[User Score]</span></div>
-            <div class="time">Time Taken: <span id="userTime">[User Time]</span></div>
+            <div class="score">Scenraios Correct: <span id="userScore" th:text="${gamePlayStats.scenariosCorrect}"></span></div>
+            <div class="score">Scenraios Incorrect: <span id="userScore" th:text="${gamePlayStats.scenariosWrong}"></span></div>
+            <div class="time">Time Taken: <span id="userTime" th:text="${gamePlayStats.timeTakenSeconds}"></span></div>
+            <div class="buttons">
+                <button onclick="location.href='/credits'">Game Credits</button>
+                <button onclick="location.href='/leaderboard'">Leaderboard</button>
+            </div>
         </div>
-
     </div>
 
 
