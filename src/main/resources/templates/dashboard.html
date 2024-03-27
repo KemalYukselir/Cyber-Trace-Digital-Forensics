@@ -362,8 +362,6 @@
                     <div class="multiplierDisplay" id="multiplierDisplay">Multiplier: <div id = "multiplierValue">5x</div></div>
                 </div>
 
-
-
                 <div class="judgementButtons">
                     <li id= "esculateButton">
                         <form action="/judgement/guilty" method="post">
@@ -390,9 +388,11 @@
     <div class="back-button">
         <button onclick="location.href='/mainMenu'">Back</button>
     </div>
-    <script>
-var interval; // Declare the interval variable outside of any function so it can be accessed globally
-
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var isGuilty = /*[[${isGuilty}]]*/ false; // Assuming isGuilty is a boolean variable
+        /*]]>*/
+        var interval; // Declare the interval variable outside of any function so it can be accessed globally
 
 function setMultiplierValue(multiplierValue) {
     document.getElementById("userMultiplierEscalate").value = multiplierValue;
@@ -431,6 +431,7 @@ function resetClock() {
 
     window.onload = function() {
         resetClock(); // Call resetClock function when the window loads to start the clock
+        console.log(isGuilty)
     }
 
     function handleButtonClick(buttonText) {
@@ -456,6 +457,16 @@ function resetClock() {
                 overviewText.textContent = "";
                 simulateTyping("Records", overviewText);
                 break;
+            // case 'Escalate':
+            //     overviewText.textContent = "";
+            //     isFirstScenario = false
+            //     console.log(isFirstScenario)
+            //     break;
+            // case 'Not Suspicious':
+            //     overviewText.textContent = "";
+            //     isFirstScenario = false
+            //     console.log(isFirstScenario)
+            //     break;
     }
 
 }
