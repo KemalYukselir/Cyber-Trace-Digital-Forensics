@@ -276,7 +276,8 @@
     </style>
 </head>
 <body>
-    <audio id="menuAudio" src="/img/audio/AETHER - Density & Time.mp3" volume="0.1"></audio>
+    <audio id="menuAudio" src="/img/au
+    dio/EBB - Density & Time.mp3"></audio>
 
     <div class="container">
 
@@ -353,8 +354,6 @@
                 <div class="user-info">
                     <p>Name: <span th:text="${scenario.subject}"/></p>
                     <p>Overview: <span th:text="${scenario.overview}"/></p>
-                    <p th:if="${judgement}">Judgment: <span th:text="${judgement}"/></p>
-                    <p th:if="${isGuilty}">IsGuilty: <span th:text="${isGuilty}"/></p>
                 </div>
                 <div class="clockTimer">
                     <div class="second"></div>
@@ -390,7 +389,10 @@
     </div>
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var isGuilty = /*[[${isGuilty}]]*/ false; // Assuming isGuilty is a boolean variable
+        var isGuilty = /*[[${isGuilty}]]*/ false; 
+        var lastJudegment = /*[[${judgement}]]*/ null;
+        var userLogin = /*[[${getUsersLogin}]]*/ null;
+
         /*]]>*/
         var interval; // Declare the interval variable outside of any function so it can be accessed globally
 
@@ -429,9 +431,40 @@ function resetClock() {
 }
 
 
+
     window.onload = function() {
         resetClock(); // Call resetClock function when the window loads to start the clock
-        console.log(isGuilty)
+        // Get the audio element
+        var audio = document.getElementById("menuAudio");
+        
+        // Set the volume
+        audio.volume = 0.2;
+
+        // Define the range for random start time (in seconds)
+        var minStartTime = 20; // minimum start time (20 seconds)
+        var maxStartTime = 180; // maximum start time (3 minutes)
+
+        // Generate a random start time within the defined range
+        var randomStartTime = Math.random() * (maxStartTime - minStartTime) + minStartTime;
+        randomStartTime = Math.floor(randomStartTime);
+
+        console.log(randomStartTime)
+        
+        // Set the current time of the audio to the random start time
+        audio.currentTime += randomStartTime;
+
+        // Play the audio
+        audio.play();
+        if (isGuilty && lastJudegment == "guilty") {
+            simulateTypingJudgement("Escalate")
+        } else if (isGuilty && lastJudegment == "innocent") {
+            simulateTypingJudgement("NotSuspiciousWrong")
+        } else if (!isGuilty && lastJudegment == "guilty"){
+            simulateTypingJudgement("EscalateWrong")
+        }
+        else if (!isGuilty && lastJudegment == "innocent") {
+            simulateTypingJudgement("NotSuspicious")
+        }
     }
 
     function handleButtonClick(buttonText) {
@@ -457,16 +490,6 @@ function resetClock() {
                 overviewText.textContent = "";
                 simulateTyping("Records", overviewText);
                 break;
-            // case 'Escalate':
-            //     overviewText.textContent = "";
-            //     isFirstScenario = false
-            //     console.log(isFirstScenario)
-            //     break;
-            // case 'Not Suspicious':
-            //     overviewText.textContent = "";
-            //     isFirstScenario = false
-            //     console.log(isFirstScenario)
-            //     break;
     }
 
 }
@@ -474,7 +497,43 @@ function resetClock() {
 // Array of audio file paths
 var audioPaths = ['img/audio/typingVar1.mp3', 'img/audio/typingVar2.mp3', 'img/audio/typingVar3.mp3', 'img/audio/typingVar4.mp3'];
 
-function simulateTyping(text, element) {
+function simulateTypingJudgement(text) {
+    var statusOnlineText = "Subject " + userLogin + " User Feedback"
+    console.log(statusOnlineText)
+    var index = 0;
+    dashboardTitle.textContent = ""; // Clear the dashboard title
+    // // Randomly select an audio path
+    var randomIndex = Math.floor(Math.random() * audioPaths.length);
+    var typingSound = new Audio(audioPaths[randomIndex]);
+    typingSound.volume = 0.5; // Set the volume to 50%
+    typingSound.play(); // Play typing sound effect
+    overviewText.textContent = "";
+    var interval = setInterval(function() {
+        dashboardTitle.textContent += statusOnlineText[index];
+        index++;
+        if (index === statusOnlineText.length) {
+            clearInterval(interval);
+            switch (text) {
+                case "Escalate":
+                    overviewText.textContent = "The judges have made their verdict... \n The last person came back guilty and you guessed escalate which is correct";
+                    break
+                case "NotSuspicious":
+                    overviewText.textContent = "The judges have made their verdict... \n The last person came back innocent and you guessed not suspicious which is correct";
+                    break    
+
+                case "EscalateWrong":
+                    overviewText.textContent = "The judges have made their verdict... \n The last person came back innocent and you guessed escalate which is incorrect";
+                    break
+                case "NotSuspiciousWrong":
+                    overviewText.textContent = "The judges have made their verdict... \n The last person came back guilty and you guessed not suspicious which is incorrect";
+                    break   
+            }
+        }
+    }, 50); // Adjust typing speed as needed
+}
+
+
+function simulateTyping(text) {
     var index = 0;
     dashboardTitle.textContent = ""; // Clear the dashboard title
     // // Randomly select an audio path
