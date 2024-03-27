@@ -276,7 +276,7 @@
     </style>
 </head>
 <body>
-    <audio id="menuAudio" src="/img/audio/AETHER - Density & Time.mp3" volume="0.1"></audio>
+    <audio id="menuAudio" src="/img/audio/EBB - Density & Time.mp3"></audio>
 
     <div class="container">
 
@@ -353,16 +353,12 @@
                 <div class="user-info">
                     <p>Name: <span th:text="${scenario.subject}"/></p>
                     <p>Overview: <span th:text="${scenario.overview}"/></p>
-                    <p th:if="${judgement}">Judgment: <span th:text="${judgement}"/></p>
-                    <p th:if="${isGuilty}">IsGuilty: <span th:text="${isGuilty}"/></p>
                 </div>
                 <div class="clockTimer">
                     <div class="second"></div>
                     <div class="countdown" id="countdown">05:00</div>
                     <div class="multiplierDisplay" id="multiplierDisplay">Multiplier: <div id = "multiplierValue">5x</div></div>
                 </div>
-
-
 
                 <div class="judgementButtons">
                     <li id= "esculateButton">
@@ -390,9 +386,14 @@
     <div class="back-button">
         <button onclick="location.href='/mainMenu'">Back</button>
     </div>
-    <script>
-var interval; // Declare the interval variable outside of any function so it can be accessed globally
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var isGuilty = /*[[${isGuilty}]]*/ false; 
+        var lastJudegment = /*[[${judgement}]]*/ null;
+        var userLogin = /*[[${getUsersLogin}]]*/ null;
 
+        /*]]>*/
+        var interval; // Declare the interval variable outside of any function so it can be accessed globally
 
 function setMultiplierValue(multiplierValue) {
     document.getElementById("userMultiplierEscalate").value = multiplierValue;
@@ -429,8 +430,24 @@ function resetClock() {
 }
 
 
+
     window.onload = function() {
         resetClock(); // Call resetClock function when the window loads to start the clock
+        audio = document.getElementById("menuAudio")
+        audio.play();
+        audio.currentTime += 50; 
+        audio.volume = 0.2;
+
+        if (isGuilty && lastJudegment == "guilty") {
+            simulateTypingJudgement("Escalate")
+        } else if (isGuilty && lastJudegment == "innocent") {
+            simulateTypingJudgement("NotSuspiciousWrong")
+        } else if (!isGuilty && lastJudegment == "guilty"){
+            simulateTypingJudgement("EscalateWrong")
+        }
+        else if (!isGuilty && lastJudegment == "innocent") {
+            simulateTypingJudgement("NotSuspicious")
+        }
     }
 
     function handleButtonClick(buttonText) {
@@ -463,7 +480,43 @@ function resetClock() {
 // Array of audio file paths
 var audioPaths = ['img/audio/typingVar1.mp3', 'img/audio/typingVar2.mp3', 'img/audio/typingVar3.mp3', 'img/audio/typingVar4.mp3'];
 
-function simulateTyping(text, element) {
+function simulateTypingJudgement(text) {
+    var statusOnlineText = "Subject " + userLogin + " User Feedback"
+    console.log(statusOnlineText)
+    var index = 0;
+    dashboardTitle.textContent = ""; // Clear the dashboard title
+    // // Randomly select an audio path
+    var randomIndex = Math.floor(Math.random() * audioPaths.length);
+    var typingSound = new Audio(audioPaths[randomIndex]);
+    typingSound.volume = 0.5; // Set the volume to 50%
+    typingSound.play(); // Play typing sound effect
+    overviewText.textContent = "";
+    var interval = setInterval(function() {
+        dashboardTitle.textContent += statusOnlineText[index];
+        index++;
+        if (index === statusOnlineText.length) {
+            clearInterval(interval);
+            switch (text) {
+                case "Escalate":
+                    overviewText.textContent = "The judges have made their verdict... \n The last person came back guilty and you guessed escalate which is correct";
+                    break
+                case "NotSuspicious":
+                    overviewText.textContent = "The judges have made their verdict... \n The last person came back innocent and you guessed not suspicious which is correct";
+                    break    
+
+                case "EscalateWrong":
+                    overviewText.textContent = "The judges have made their verdict... \n The last person came back innocent and you guessed escalate which is incorrect";
+                    break
+                case "NotSuspiciousWrong":
+                    overviewText.textContent = "The judges have made their verdict... \n The last person came back guilty and you guessed not suspicious which is incorrect";
+                    break   
+            }
+        }
+    }, 50); // Adjust typing speed as needed
+}
+
+
+function simulateTyping(text) {
     var index = 0;
     dashboardTitle.textContent = ""; // Clear the dashboard title
     // // Randomly select an audio path
