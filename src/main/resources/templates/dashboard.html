@@ -251,6 +251,18 @@
         .overview td {
             color: green;
         }
+        #paymentsTable td{
+            position: relative;
+            font-size: 20px;
+            justify-content: center;
+        }
+
+        #recordsTable td {
+            position: relative;
+            font-size: 18px;
+            justify-content: center;
+        }
+
         .back-button {
             position: fixed;
             bottom: 20px;
@@ -476,7 +488,6 @@ var audioPaths = ['img/audio/typingVar1.mp3', 'img/audio/typingVar2.mp3', 'img/a
 
 function simulateTypingJudgement(text) {
     var statusOnlineText = "Subject " + userLogin + " User Feedback"
-    console.log(statusOnlineText)
     var index = 0;
     dashboardTitle.textContent = ""; 
     var randomIndex = Math.floor(Math.random() * audioPaths.length);
@@ -484,6 +495,10 @@ function simulateTypingJudgement(text) {
     typingSound.volume = 0.5; 
     typingSound.play();
     overviewText.textContent = "";
+    var buttons = document.querySelectorAll('.options li button');
+    buttons.forEach(function(button) {
+        button.disabled = true;
+    });
     var interval = setInterval(function() {
         dashboardTitle.textContent += statusOnlineText[index];
         index++;
@@ -504,6 +519,9 @@ function simulateTypingJudgement(text) {
                     overviewText.textContent = "The judges have made their verdict... \n The last person came back guilty and you guessed not suspicious which is incorrect";
                     break   
             }
+            buttons.forEach(function(button) {
+            button.disabled = false;
+            });
         }
     }, 50); 
 }
